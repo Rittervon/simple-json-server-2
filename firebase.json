@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "public",
+    "site": "mophers",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
