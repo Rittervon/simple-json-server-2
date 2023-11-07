@@ -20,7 +20,7 @@
       .map_wrap {
         position: relative;
         width: 100%;
-        height: 1700px;
+        height: 680px;
       }
       #menu_wrap {
         position: absolute;
@@ -156,11 +156,11 @@
       }
 
       div.left {
-        background: yellow;
-        border-style: solid;
-        border-color: peru;
+        
+        
+        
         margin: 0;
-        border-width: 30px;
+        
         padding: 20px;
         height: 20%;
         width: 10%;
@@ -168,48 +168,53 @@
         position: relative;
       }
       div.right {
-        background: yellow;
-        border-style: solid;
-        border-color: peru;
+        
+        
+        
         margin: 0;
-        border-width: 30px;
-        padding: 20px;
+      
+        padding: 50px;
         height: 20%;
-        width: 10%;
+        width: 38%;
         float: right;
         position: relative;
       }
 
       .exp-bar {
-        width: 90%;
-        height: 20px;
         position: absolute;
-        width: 200px;
+        width: 150px;
         height: 10px;
         border: 1px solid black;
-        margin: 40px;
       }
+
       .exp-amount {
         position: absolute;
         height: 10px;
         background-color: green;
       }
+      .custom_zoomcontrol {position:absolute;top:50px;right:10px;width:36px;height:80px;overflow:hidden;z-index:1;background-color:#f5f5f5;} 
+.custom_zoomcontrol span {display:block;width:36px;height:40px;text-align:center;cursor:pointer;}     
+.custom_zoomcontrol span img {width:15px;height:15px;padding:12px 0;border:none;}             
+.custom_zoomcontrol span:first-child{border-bottom:1px solid #bfbfbf;}  
+
     </style>
   </head>
   <body>
     <div class="map_wrap">
-      <div
-        id="map"
-        style="width: 100%; height: 100%; position: relative; overflow: hidden">
-      </div>
       <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden"></div>
+
+<!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+<div class="custom_zoomcontrol radius_border"> 
+  <span onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></span>  
+  <span onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></span>
+</div>
 
       <div id="menu_wrap" class="bg_white">
         <div class="option">
           <div>
             <form onsubmit="searchPlaces(); return false;">
-              검색 :
-              <input type="text" id="keyword" size="15" />
+              장소 :
+              <input type="text" value=" " id="keyword" size="15" />
               <button type="submit">검색하기</button>
             </form>
           </div>
@@ -219,12 +224,16 @@
         <div id="pagination"></div>
       </div>
     </div>
+
+
     <div class="left">
-      <span><img src="media/캐릭터1.jpeg" alt="캐릭터" /></span>
+      <span><img src="./media/char2.png" alt="캐릭터" width="90px" height="110px"/></span>
     </div>
     <div class="right">
-      <div style="margin: 40px; border: solid 1px black;">캐릭명 : 피카츄</div>
-      <div class="exp-bar" style="margin: 40px; border: solid 1px black;"></div>
+      <div>캐릭터 이름</div>
+      <br><br>
+      <div class="exp-bar"></div>
+      <div class="exp-amount"></div>
     </div>
 
     <script
@@ -374,14 +383,10 @@
 
       // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
       function addMarker(position, idx, title) {
-        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        var imageSrc = './media/stop.gif', // 마커 이미지 url, 스프라이트 이미지를 씁니다
           imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
-          imgOptions = {
-            spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-            spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-            offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-          },
-          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+         
+          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
           marker = new kakao.maps.Marker({
             position: position, // 마커의 위치
             image: markerImage,
@@ -447,6 +452,22 @@
           el.removeChild(el.lastChild);
         }
       }
+
+      // 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomIn() {
+    map.setLevel(map.getLevel() - 1);
+}
+
+// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomOut() {
+    map.setLevel(map.getLevel() + 1);
+}
+
+// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
+kakao.maps.event.addListener(marker, 'click', function() {
+		    alert('마커를 클릭했습니다!');
+		});
+    
     </script>
   </body>
 </html>
