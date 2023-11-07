@@ -251,12 +251,12 @@
 
           // 얻어온 현재 위치를 지도의 중심 좌표로 설정
           map.setCenter(center);
+          setInterval.center(1000);
         });
       } else {
         console.error("Geolocation is not supported by this browser.");
       }
 
-      setInterval.setCenter(1000);
 
       // 장소 검색 객체를 생성합니다
       var ps = new kakao.maps.services.Places();
