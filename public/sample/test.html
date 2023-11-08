@@ -20,7 +20,7 @@
       .map_wrap {
         position: relative;
         width: 100%;
-        height: 500px;
+        height: 680px;
       }
       #menu_wrap {
         position: absolute;
@@ -156,11 +156,8 @@
       }
 
       div.left {
-        background: yellow;
-        border-style: solid;
-        border-color: peru;
         margin: 0;
-        border-width: 30px;
+
         padding: 20px;
         height: 20%;
         width: 10%;
@@ -168,21 +165,18 @@
         position: relative;
       }
       div.right {
-        background: yellow;
-        border-style: solid;
-        border-color: peru;
         margin: 0;
-        border-width: 30px;
-        padding: 20px;
+
+        padding: 50px;
         height: 20%;
-        width: 10%;
+        width: 38%;
         float: right;
         position: relative;
       }
 
       .exp-bar {
         position: absolute;
-        width: 200px;
+        width: 150px;
         height: 10px;
         border: 1px solid black;
       }
@@ -192,6 +186,32 @@
         height: 10px;
         background-color: green;
       }
+      .custom_zoomcontrol {
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        width: 36px;
+        height: 80px;
+        overflow: hidden;
+        z-index: 1;
+        background-color: #f5f5f5;
+      }
+      .custom_zoomcontrol span {
+        display: block;
+        width: 36px;
+        height: 40px;
+        text-align: center;
+        cursor: pointer;
+      }
+      .custom_zoomcontrol span img {
+        width: 15px;
+        height: 15px;
+        padding: 12px 0;
+        border: none;
+      }
+      .custom_zoomcontrol span:first-child {
+        border-bottom: 1px solid #bfbfbf;
+      }
     </style>
   </head>
   <body>
@@ -200,6 +220,7 @@
         id="map"
         style="width: 100%; height: 100%; position: relative; overflow: hidden"
       ></div>
+
       <div id="menu_wrap" class="bg_white">
         <div class="option">
           <div>
@@ -215,11 +236,15 @@
         <div id="pagination"></div>
       </div>
     </div>
+
     <div class="left">
-      <span><img src="media/캐릭터1.jpeg" alt="캐릭터" /></span>
+      <span
+        ><img src="./media/char2.png" alt="캐릭터" width="90px" height="110px"
+      /></span>
     </div>
     <div class="right">
-      <div>피카츄</div>
+      <div>캐릭터 이름</div>
+      <br /><br />
       <div class="exp-bar"></div>
       <div class="exp-amount"></div>
     </div>
@@ -462,13 +487,6 @@
           el.removeChild(el.lastChild);
         }
       }
-      // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-      // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-      map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-      // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-      var zoomControl = new kakao.maps.ZoomControl();
-      map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     </script>
   </body>
 </html>
