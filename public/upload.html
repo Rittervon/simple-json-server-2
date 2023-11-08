@@ -1,52 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Success Login</h1>
     <div>
-        <button id="pick-image">Image 선택하기</button>
+      <button id="pick-image">Image 선택하기</button>
     </div>
-    <div id="preview-box">
-
-    </div>
+    <div id="preview-box"></div>
     <div>
-        <button id="upload-image">Image 업로드하기</button>
+      <button id="upload-image">Image 업로드하기</button>
     </div>
-    <div id="upload-image-box">
-
-    </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/js/mcore.min.js"></script>
-<script>
+    <div id="upload-image-box"></div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/mcore.min.js"></script>
+  <script>
     (function () {
+      $(function () {
+        // upload 이벤트
+        var $pickImage = $("#pick-image");
+        var $previewBox = $("#preview-box");
+        var $uploadImage = $("#upload-iamge");
+        var $uploadImageBox = $("#upload-image-box");
 
-        $(function () {
-            // upload 이벤트
-            var $pickImage = $('#pick-image')
-            var $previewBox = $('#preview-box')
-            var $uploadImage = $('#upload-iamge')
-            var $uploadImageBox = $('#upload-image-box')
+        $pickImage.on("click", function () {
+          $.imagePicker().then(({ status, result }) => {
+            if (status === "SUCCESS") {
+              _selectImage = result.path;
+              return $.img2base64(_selectImage);
+            } else {
+              return Promise.reject("이미지를 가져오지 못했습니다.");
+            }
+          });
+        });
 
-            $pickImage.on("click", function () {
-                $.imagePicker().then(({ status, result}) => {
-                    if (status === "SUCCESS") {
-                        _selectImage = result.path;
-                        return $.img2base64(_selectImage)
-                    } else {
-                        return Promise.reject('이미지를 가져오지 못했습니다.')
-                    }
-                })
-            })
-            
-            $uploadImage.on("click", function () {
-
-            })
-        })
-    })
-</script>
+        $uploadImage.on("click", function () {});
+      });
+    });
+  </script>
 </html>
