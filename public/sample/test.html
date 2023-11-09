@@ -325,7 +325,8 @@
         .getElementById("searchButton")
         .addEventListener("click", function () {
           var menuWrap = document.querySelector("#menu_wrap");
-          menuWrap.style.height = "680px";
+          menuWrap.style.height = "680px"
+          menuWrap.style.overflowY = "scroll";
         });
 
       document
@@ -333,6 +334,7 @@
         .addEventListener("click", function () {
           var menuWrap = document.querySelector("#menu_wrap");
           menuWrap.style.height = "25px";
+          menuWrap.style.overflowY = "hidden";
         });
 
       // 검색 결과 목록과 마커를 표출하는 함수입니다
