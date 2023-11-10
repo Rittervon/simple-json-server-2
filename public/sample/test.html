@@ -216,18 +216,21 @@
       .custom_zoomcontrol span:first-child {
         border-bottom: 1px solid #bfbfbf;
       }
+
+      #map {
+        transition: width 0.5s, height 0.5s;
+      }
     </style>
   </head>
   <body>
+    <button onclick="toggleMapSize()">+</button> 
     <div class="map_wrap">
       <div
         id="map"
         style="width: 100%; height: 100%; position: relative; overflow: hidden"
       ></div>
-      <p>
-        <button onclick="resizeMap()">지도 크기 바꾸기</button> 
-        <button onclick="relayout()">relayout 호출하기</button>
-        </p>
+      
+
       <div id="menu_wrap">
         <div class="option">
           <form onsubmit="searchPlaces(); return false;">
@@ -537,11 +540,34 @@
         }
       }
 
-      // 지도를 표시하는 div 크기를 변경하는 함수입니다
-function resizeMap() {
-    var mapContainer = document.getElementById('map');
-    mapContainer.style.width = '650px';
-    mapContainer.style.height = '650px'; 
+     // Add a variable to keep track of the map size state
+     var isMapExpanded = true;
+
+// Toggle map size function
+function toggleMapSize() {
+  var mapContainer = document.getElementById('map');
+  var leftDiv = document.querySelector('.left');
+  var rightDiv = document.querySelector('.right');
+
+  if (isMapExpanded) {
+    // Reduce map size
+    mapContainer.style.width = '200%';
+    mapContainer.style.height = '200%';
+    leftDiv.style.display = 'none';
+    rightDiv.style.display = 'none';
+  } else {
+    // Expand map size
+    mapContainer.style.width = '100%';
+    mapContainer.style.height = '100%';
+    leftDiv.style.display = 'block';
+    rightDiv.style.display = 'block';
+  }
+
+  // Toggle the map size state
+  isMapExpanded = !isMapExpanded;
+
+  // Call the relayout function to ensure the map displays correctly
+  relayout();
 }
 
 function relayout() {    
