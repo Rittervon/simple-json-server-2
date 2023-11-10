@@ -6,6 +6,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <title>Main Page</title>
     <style>
       .map_wrap,
@@ -170,10 +174,12 @@
         visibility: hidden;
       }
 
-      #searchCloseButton {
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
         position: absolute;
+        border: none;
         background-color: transparent;
-        margin-right: 10px;
+        right: 15px;
       }
 
       div.left {
@@ -260,7 +266,8 @@
     </div>
 
     <div id="searchResult">
-      <button id="searchCloseButton">X</button>
+      <button class="material-symbols-outlined" id="searchCloseButton">
+        close</button>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
@@ -579,7 +586,7 @@
           mapContainer.style.width = "100%";
           mapContainer.style.height = "100%";
           menuWrap.style.top = "0px";
-          menuWrap.style.display = "block"
+          menuWrap.style.display = "block";
           leftDiv.style.display = "block";
           rightDiv.style.display = "block";
         }
