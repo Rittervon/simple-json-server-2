@@ -227,17 +227,22 @@
       .custom_zoomcontrol span:first-child {
         border-bottom: 1px solid #bfbfbf;
       }
+
+      #map {
+        transition: width 0.5s, height 0.5s;
+      }
     </style>
   </head>
   <body>
-    <span class="material-symbols-outlined" onclick="resizeMap">
-      zoom_out_map
-    </span>
     <div class="map_wrap">
       <div
         id="map"
         style="width: 100%; height: 100%; position: relative; overflow: hidden"
       ></div>
+      <p>
+        <button onclick="resizeMap()">지도 크기 바꾸기</button> 
+        <button onclick="relayout()">relayout 호출하기</button>
+        </p>
       <div id="menu_wrap">
         <div class="option">
           <form onsubmit="searchPlaces(); return false;">
@@ -548,12 +553,19 @@
       }
 
       // 지도를 표시하는 div 크기를 변경하는 함수입니다
-      function resizeMap() {
-        var mapContainer = document.getElementById("map");
-        mapContainer.style.width = "100%";
-        mapContainer.style.height = "100%";
-        map.relayout();
-      }
+function resizeMap() {
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.width = '650px';
+    mapContainer.style.height = '650px'; 
+}
+
+function relayout() {    
+    
+    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    map.relayout();
+}
     </script>
   </body>
 </html>
