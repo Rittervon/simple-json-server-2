@@ -303,7 +303,7 @@
       } else {
         console.error("GPS가 켜져있는지 확인해주세요.");
       }
-
+      
       function displayMarker(locPosition) {
         // 마커를 생성합니다
         var marker = new kakao.maps.Marker({
@@ -350,10 +350,12 @@
           return;
         }
       }
-      document.getElementById("searchButton").addEventListener("click", function () {
-        var searchResult = document.querySelector("#searchResult");
-        searchResult.style.visibility = "visible"
-      })
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          var searchResult = document.querySelector("#searchResult");
+          searchResult.style.visibility = "visible";
+        });
 
       document
         .getElementById("searchCloseButton")
