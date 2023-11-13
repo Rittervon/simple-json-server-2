@@ -6,6 +6,11 @@ Start Simple Json Server
 - CORS
 - Todos, Users, Boards...
 
+## workspace
+
+github https://github.com/7ee5u61n/simple-json-server-2
+google drive https://drive.google.com/file/d/1VPjIbKVyUBUs3ozWBBB1kL6-C4JiGSiR/view?usp=drive_link
+
 ## installation
 
 ```bash
@@ -25,11 +30,6 @@ yarn serve
 - `/todo`, `/user`, `/board` : simple
 
 - `/mp/**` : Morpheus GW 규격의 대응
-
-## Todo
-
-- ~~pagination~~
-- make a cli
 
 ## Reference
 
