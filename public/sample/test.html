@@ -5,12 +5,17 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      
     />
+    <link href="https://fonts.googleapis.com/css2?family=Hahmlet&display=swap" rel="stylesheet">
     <title>Main Page</title>
     <style>
+      body {
+        font-family: 'Hahmlet', serif;
+      }
       .map_wrap,
       .map_wrap * {
-        font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+       
         font-size: 12px;
         margin: 0;
         padding: 0;
@@ -183,6 +188,9 @@
         width: 10%;
         float: left;
         position: relative;
+        border-radius: 50px;
+        
+        
       }
 
       div.right {
@@ -192,6 +200,7 @@
         width: 38%;
         float: right;
         position: relative;
+        
       }
 
       #exp_bar {
@@ -236,6 +245,8 @@
       #map {
         transition: width 0.5s, height 0.5s;
       }
+
+      
     </style>
   </head>
   <body>
@@ -264,7 +275,7 @@
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
-
+    
     <div class="left">
       <span
         ><a href="./character.html"
