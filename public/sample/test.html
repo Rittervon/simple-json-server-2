@@ -251,12 +251,13 @@
 
       .main-container {
         width: 100%;
-        background-color: rgb(87, 177, 124);
+        background-color: rgba(138, 136, 136, 0.836);
         border-radius: 50px;
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        box-shadow: 5px 5px 5px 5px gray;
       }
       #keyword{
         border-radius: 30px;
@@ -290,8 +291,9 @@
     
     <div class="option">
       <form onsubmit="searchPlaces(); return false;">
-        <input type="text" id="keyword" placeholder="Search" style="text-align: center;"/>
-       <!-- --> <button type="submit" id="searchButton">검색하기</button> 
+        <input type="text" id="keyword" placeholder="Search" style="text-align: center;" onkeypress="if( event.keyCode == 13 ){searchPlaces()}
+        document.getElementById('searchResult').style.visibility = 'visible';" />
+       <!-- <button type="submit" id="searchButton">검색하기</button> --> 
       </form>
       <hr>
     </div>
@@ -299,7 +301,7 @@
     <div class="map_wrap">
       <div
         id="map"
-        style="width: 100%; height: 100%; position: relative; overflow: hidden"
+        style="width: 100%; height: 98%; position: relative; overflow: hidden"
       ></div>
       <button class="material-symbols-outlined" onclick="toggleMapSize()">
         zoom_out_map
@@ -308,8 +310,8 @@
     </div>
 
     <div id="searchResult">
-      <button class="material-symbols-outlined" id="searchCloseButton">
-        close</button>
+      <button id="searchCloseButton"
+      onclick="document.getElementById('searchResult').style.visibility = 'hidden';">X</button>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
