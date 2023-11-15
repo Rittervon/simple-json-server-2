@@ -53,6 +53,7 @@
         z-index: 2;
         cursor: pointer;
       }
+      
 
       #menu_wrap .option {
         text-align: center;
@@ -175,6 +176,13 @@
         height: 300px;
         visibility: hidden;
       }
+      .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
 
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -310,8 +318,8 @@
     </div>
 
     <div id="searchResult">
-      <button id="searchCloseButton"
-      onclick="document.getElementById('searchResult').style.visibility = 'hidden';">X</button>
+      <button class="material-symbols-outlined"
+      onclick="document.getElementById('searchResult').style.visibility = 'hidden';">close</button>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
