@@ -2,16 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device=width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link
+      href="https://fonts.googleapis.com/css2?family=Hahmlet&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <title>Main Page</title>
     <style>
+      body {
+        font-family: "Hahmlet", serif;
+      }
       .map_wrap,
       .map_wrap * {
         font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
@@ -23,7 +27,7 @@
       .map_wrap {
         position: relative;
         width: 100%;
-        height: 680px;
+        height: 640px;
       }
 
       #menu_wrap {
@@ -173,13 +177,12 @@
         height: 300px;
         visibility: hidden;
       }
-
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
         position: absolute;
         border: none;
         background-color: transparent;
-        right: 15px;
+        right: 10px;
       }
 
       div.left {
@@ -189,6 +192,7 @@
         width: 10%;
         float: left;
         position: relative;
+        border-radius: 50px;
       }
 
       div.right {
@@ -198,6 +202,7 @@
         width: 38%;
         float: right;
         position: relative;
+        border-radius: 50px;
       }
 
       #exp_bar {
@@ -210,7 +215,7 @@
       #exp_amount {
         position: absolute;
         height: 10px;
-        background-color: green;
+        background-color: black;
       }
       .custom_zoomcontrol {
         position: absolute;
@@ -242,53 +247,106 @@
       #map {
         transition: width 0.5s, height 0.5s;
       }
+
+      .main-container {
+        width: 100%;
+        background-color: rgba(138, 136, 136, 0.836);
+        border-radius: 50px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        box-shadow: 5px 5px 5px 5px gray;
+      }
+      #keyword {
+        border-radius: 30px;
+        background-image: url(https://drive.google.com/uc?export=view&id=1I_17f0kaVwSSmS8SvlHuRSbZZEvloXUe);
+        background-position: 13px center;
+        background-size: 13px 13px;
+        background-repeat: no-repeat;
+        border: 1px solid #ccc;
+
+        padding: 5px 5px;
+        text-indent: 0px;
+
+        width: 95%;
+      }
+      #keyword:focus {
+        background-image: none;
+        background-position: -10px center;
+        text-indent: 0;
+        width: 95%;
+      }
+      #searchButton {
+        border-radius: 30px;
+        float: right;
+      }
     </style>
   </head>
-  <body>
-    <button class="material-symbols-outlined" onclick="toggleMapSize()">
-      zoom_out_map
-    </button>
+  <body style="margin: 0px">
+    <!--로고 가운데-->
+    <div style="text-align: center">
+      <img
+        src="https://drive.google.com/uc?export=view&id=1zWTIy04T_BBZksq2ex7lE4-Qrs_opXn-"
+        alt="logo"
+        width="30%"
+        height="60px"
+      />
+    </div>
+
+    <div class="option">
+      <form onsubmit="searchPlaces(); return false;">
+        <input
+          type="text"
+          id="keyword"
+          placeholder="Search"
+          style="text-align: center"
+          onkeypress="if( event.keyCode == 13 ){searchPlaces()}
+        document.getElementById('searchResult').style.visibility = 'visible';"
+        />
+        <!-- <button type="submit" id="searchButton">검색하기</button> -->
+      </form>
+      <hr />
+    </div>
+
     <div class="map_wrap">
       <div
         id="map"
-        style="width: 100%; height: 100%; position: relative; overflow: hidden"
+        style="width: 100%; height: 98%; position: relative; overflow: hidden"
       ></div>
-
-      <div id="menu_wrap">
-        <div class="option">
-          <form onsubmit="searchPlaces(); return false;">
-            키워드 :
-            <input type="text" id="keyword" size="15" />
-            <button type="submit" id="searchButton">검색하기</button>
-          </form>
-        </div>
-      </div>
+      <button class="material-symbols-outlined" onclick="toggleMapSize()">
+        zoom_out_map
+      </button>
     </div>
 
     <div id="searchResult">
-      <button class="material-symbols-outlined" id="searchCloseButton">
-        close</button>
+      <button
+        class="material-symbols-outlined"
+        onclick="document.getElementById('searchResult').style.visibility = 'hidden';"
+      >
+        close
+      </button>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
-
-    <div class="left">
-      <span
-        ><a href="/public/sample/character.html"
-          ><img
-            src="./media/char2.png"
-            alt="캐릭터"
-            width="90px"
-            height="110px" /></a
-      ></span>
+    <div class="main-container">
+      <div class="left">
+        <span
+          ><a href="./character.html"
+            ><img
+              src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th"
+              alt="캐릭터"
+              width="90px"
+              height="110px" /></a
+        ></span>
+      </div>
+      <div class="right">
+        <div>캐릭터 이름</div>
+        <br /><br />
+        <div id="exp_bar"></div>
+        <div id="exp_amount"></div>
+      </div>
     </div>
-    <div class="right">
-      <div>캐릭터 이름</div>
-      <br /><br />
-      <div id="exp_bar"></div>
-      <div id="exp_amount"></div>
-    </div>
-
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d9a0cfe3be05ccad5e8bf66f0ef8148&libraries=services"
@@ -306,7 +364,8 @@
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
 
-      var imageSrc = "./media/char2_point.png", // 마커이미지의 주소입니다
+      var imageSrc =
+          "https://drive.google.com/uc?export=view&id=1TbwzpKCMygzwrw1roQ2hI_uVuEDxnesW", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(70, 70), // 마커이미지의 크기입니다
         imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -345,7 +404,7 @@
       }
 
       // 장소 검색 객체를 생성합니다
-      var ps = new kakao.maps.services.Places();
+      var ps = new kakao.maps.services.Places(map);
 
       // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
@@ -414,6 +473,7 @@
           var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
             marker = addMarker(placePosition, i),
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+          console.dir(marker.Rc);
 
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
           // LatLngBounds 객체에 좌표를 추가합니다
@@ -578,7 +638,7 @@
           // Reduce map size
           mapContainer.style.width = "200%";
           mapContainer.style.height = "200%";
-          menuWrap.style.display = "none";
+          //menuWrap.style.display = "none";
           leftDiv.style.display = "none";
           rightDiv.style.display = "none";
         } else {
