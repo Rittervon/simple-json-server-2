@@ -1,4 +1,4 @@
-package com.uracle.sample.api.walking;
+package com.uracle.sample.api.walking.table;
 
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -12,7 +12,9 @@ import lombok.ToString;
 public class UserCharacters {
     private int user_char_id;
     private String phone_number;
-    private int experience_box;
+    private int exp;
     private String character_info;
+    private String character_nickname;
     private LocalDateTime acquisition_date;
+    private boolean is_active;
 }

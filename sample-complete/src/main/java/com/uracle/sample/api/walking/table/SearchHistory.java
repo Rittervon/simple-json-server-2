@@ -1,4 +1,4 @@
-package com.uracle.sample.api.walking;
+package com.uracle.sample.api.walking.table;
 
 import java.time.LocalDateTime;
 import lombok.Getter;

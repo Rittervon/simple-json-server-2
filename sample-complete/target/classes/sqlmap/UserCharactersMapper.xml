@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uracle.sample.api.walking.mapper.UserCharactersMapper">
+
+    <!--   #####  UserCharacters  #####   -->
+
+    <insert id="getCharacter" parameterType="com.uracle.sample.api.walking.table.UserCharacters">
+        --  특정 User 객체(phone_number(id)로 판별)의 캐릭터를 추가(생성)
+        insert into user_characters(phone_number, exp, character_info)
+        values(#{phone_number}, 0, #{character_info})
+    </insert>
+
+    <select id="selectUserCharacter" resultType="com.uracle.sample.api.walking.table.UserCharacters">
+        --  특정 User 객체(phone_number(id)로 판별)의 모든 캐릭터를 user_char_id(id)순으로 반환(출력)
+        select user_char_id, phone_number, exp, character_info, character_nickname, acquisition_date, is_active
+        from user_characters
+        order by user_char_id
+    </select>
+
+    <update id="updateCharacter" parameterType="com.uracle.sample.api.walking.table.UserCharacters">
+        --  특정 User 객체(phone_number(id)로 판별)의 특정 캐릭터(user_char_id(id)로 판별)를 수정
+        update user_characters
+        set
+        <if test="character_nickname != null and character_nickname != ''">
+            character_nickname = #{character_nickname}
+        </if>
+        <if test="exp != null and exp != ''">
+            exp = #{exp}
+        </if>
+        <if test="is_active != null and is_active != ''">
+            is_active = #{is_active}
+        </if>
+        where user_char_id = #{user_char_id}
+    </update>
+    <!--삭제될 일이 없기 때문에 삭제는 넣지 않음-->
+
+</mapper>

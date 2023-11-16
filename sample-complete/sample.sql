@@ -11,9 +11,9 @@ DROP TABLE IF EXISTS users;
 -- 사용자 테이블 생성
 CREATE TABLE users
 (
-    phone_number      character varying(255) NOT NULL UNIQUE,
-    name_or_id        character varying(255) NOT NULL,
-    registration_date timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
+    phone_number        character varying(255) NOT NULL UNIQUE,
+    name_or_id          character varying(255) NOT NULL,
+    registration_date   timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
 
 -- 캐릭터 테이블
@@ -24,7 +24,7 @@ CREATE TABLE user_characters
     exp                 int,
     character_info      character varying(1024),
     character_nickname  character varying(255),
-    acquisition_date    timestamp,
+    acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
     is_active           boolean,
     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
@@ -45,7 +45,7 @@ CREATE TABLE stations
     latitude  DOUBLE,
     longitude DOUBLE,
     points    INT,
-    CONSTRAINT location_PK PRIMARY KEY (latitude, longitude)
+    PRIMARY KEY (latitude, longitude)
 );
 
 -- 사용자 산책지점 방문 기록 테이블   (3일에 한번 초기화 됨)
@@ -55,7 +55,7 @@ CREATE TABLE user_stations
     phone_number    VARCHAR(255),
     latitude        DOUBLE,
     longitude       DOUBLE,
-    visit_date      TIMESTAMP,
+    visit_date      TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (latitude, longitude) REFERENCES stations(latitude, longitude),
     FOREIGN KEY (phone_number) REFERENCES users(phone_number)
 );
@@ -66,7 +66,7 @@ CREATE TABLE search_history
     history_id   bigint(64) auto_increment PRIMARY KEY,
     phone_number character varying(255),
     search_term  character varying(255),
-    search_date  timestamp(6),
+    search_date  timestamp(6) DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
 
@@ -108,3 +108,7 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1jsGm1TAda
        ('test3', 'c3', 0, 'https://drive.google.com/uc?export=view&id=1lZ6Jr5hgNGFck0qr7b6Ykp7gUk_Dv2Zz'),
        ('test4', 'c4', 0, 'https://drive.google.com/uc?export=view&id=1Xhi9JBcmXplEaRpVLFPW7OtmDHMJdV-N'),
        ('test5', 'c5', 0, 'https://drive.google.com/uc?export=view&id=1mVACW9_e-rZE8mDsA5gnxp7tNNM8PBZy');
+
+
+commit
+

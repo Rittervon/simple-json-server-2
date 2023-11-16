@@ -1,4 +1,4 @@
-package com.uracle.sample.api.walking;
+package com.uracle.sample.api.walking.table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +12,4 @@ public class Stations {
     private float latitude;
     private float longitude;
     private int points;
-    private String description;
 }
