@@ -23,7 +23,7 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("")
+    @PostMapping("/insert")
     public ResponseEntity<MspResult> createUser(@RequestBody Users param) {
         MspResult result;
 
