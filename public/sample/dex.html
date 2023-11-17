@@ -9,14 +9,17 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Calistoga&family=Just+Me+Again+Down+Here&family=Nanum+Gothic&family=Noto+Sans+KR&display=swap");
+
+      body {
+        font-family: "Calistoga", serif;
+        font-family: "Just Me Again Down Here", cursive;
+        font-family: "Nanum Gothic", sans-serif;
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #d2deef;
+      }
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
-        position: absolute;
-        z-index: 1;
-        font-size: 64pt;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
       }
       .dex-title {
         text-align: center;
@@ -25,33 +28,46 @@
 
       .dexContainer {
         width: 80%;
-        background-color: gray;
+        background-color: #ecf0f3;
         border-radius: 50px;
         opacity: 0.5;
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        background-image: url();
+      }
+      .imageContent {
+        width: 36%;
+        height: 40%;
+        margin: 20px;
       }
 
       .imageContent {
         width: 36%;
         height: 40%;
         margin: 20px;
-        filter: grayscale(100%);
         cursor: pointer;
       }
 
       .unlock {
         position: absolute;
-        top: 100px;
-        left: 160px;
       }
       .lock {
-        position: absolute;
-        top: 100px;
-        left: 160px;
+        position: relative;
       }
+
+      #gachaButton {
+        width: 200px;
+        height: 100px;
+        margin: 20px;
+        border-radius: 16px;
+        background-color: #ecf0f3;
+        border: none;
+        box-shadow: 18px 18px 30px #d1d9e6;
+        cursor: pointer;
+      }
+
       #footbar {
         background: olive;
         position: fixed;
@@ -77,18 +93,20 @@
   </head>
   <body>
     <div class="dex-title">
-      <div>도감</div>
+      <div>化</div>
       <!--메인 화면으로 넘어가기-->
     </div>
     <div class="dexContainer">
-      <img
-        class="imageContent"
-        src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th"
-      />
-      <img
-        class="unlock"
-        src="https://drive.google.com/uc?export=view&id=1fe6flZTOYCwV5pDxwE8VS7l-v_xM5KYA"
-      />
+      <div class="imageWrapper">
+        <img
+          class="imageContent"
+          src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th"
+        />
+        <img
+          class="unlock"
+          src="https://drive.google.com/uc?export=view&id=1fe6flZTOYCwV5pDxwE8VS7l-v_xM5KYA"
+        />
+      </div>
       <img
         class="imageContent"
         src="https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn"
@@ -103,6 +121,12 @@
         src="https://drive.google.com/uc?export=view&id=1koTVy87I9_thCsg-Mq1bRf-U5QS6yfWW"
       />
     </div>
+    <div>
+      <button id="gachaButton">
+        <span class="material-symbols-outlined"> pets </span
+        ><span> 캐릭터 뽑기</span>
+      </button>
+    </div>
   </body>
   <footer>
     <nav id="footbar">
@@ -113,4 +137,5 @@
       </ul>
     </nav>
   </footer>
+  <script></script>
 </html>
