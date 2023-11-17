@@ -20,30 +20,43 @@
         flex-wrap: wrap;
         justify-content: space-between;
       }
-
-  
       .dex-image {
         width: 36%;
         height: 40%;
         margin: 20px;
+      }
+      #footbar{
+        background: olive;
+        position: fixed;
+        bottom: 1px;
+        width: 100%;
+      }
+      #footbar ul {
+        margin: 0; padding: 0;
+        display: flex;
+        justify-content: space-around;
+      }
+      #footbar ul li {
+        display: inline-block; /*새 줄로 넘어가지 않게*/
+        list-style-type: none; /* 마커 삭제 */
+        padding: 0px 15px;
+      }
+      #footbar ul li a {
+        color: white;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
     <div class="dex-title">
       <div>
-        <a href="test.html"
-          ><img src="https://drive.google.com/uc?export=view&id=1COuC7StqAUfc6kk26AeCX45aTFmy91I2" alt="" width="40px" height="40px" /></a
-        >도감
+        도감
       </div>
       <!--메인 화면으로 넘어가기-->
     </div>
     <div class="dex-container">
       <img class="dex-image" src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th" />
-      <img
-        class="dex-image"
-        src="https://drive.google.com/uc?export=view&id=18us7Pn0TiJs3skcjQUdp2go1BeadT3wd"
-      />
+      
       <img
         class="dex-image"
         src="https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn"
@@ -58,4 +71,13 @@
       />
     </div>
   </body>
+  <footer>
+    <nav id="footbar">
+      <ul>
+        <li><a href="./test.html">Home</a></li>
+        <li><a href="./character.html">캐릭터</a></li>
+        <li><a href="./dex.html">도감</a></li>
+      </ul>
+    </nav>
+  </footer>
 </html>
