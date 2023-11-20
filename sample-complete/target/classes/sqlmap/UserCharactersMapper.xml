@@ -18,7 +18,13 @@
         order by user_char_id
     </select>
 
-    <select id="selectCharacterById" resultType="com.uracle.sample.api.walking.table.UserCharacters">
+    <select id="getUserCharacterId" resultType="com.uracle.sample.api.walking.table.UserCharacters">
+        select character_nickname
+        from user_characters
+        where user_char_id = #{user_char_id}
+    </select>
+
+    <select id="getUserCharacterImage" resultType="com.uracle.sample.api.walking.table.UserCharacters">
         select character_nickname
         from user_characters
         where user_char_id = #{user_char_id}
