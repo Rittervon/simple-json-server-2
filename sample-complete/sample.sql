@@ -25,6 +25,7 @@ CREATE TABLE user_characters
     character_info      character varying(1024),
     character_nickname  character varying(255),
     acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
+    img_url         character varying(255),
     is_active           boolean,
     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
@@ -102,6 +103,9 @@ CREATE TABLE search_history
 --     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 -- );
 
+INSERT INTO users (phone_number, name_or_id)
+VALUES ('010-0000-0000', 'user01');
+
 INSERT INTO characters (character_info, character_name, required_points, img_url)
 VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1jsGm1TAdafvJ8jJIK_yBuh-QVtA64pxb'),
        ('test2', 'c2', 0, 'https://drive.google.com/uc?export=view&id=1rPwp8J5dzrjq7kbfyqOgKQRbbcX7BxgO'),
@@ -109,6 +113,13 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1jsGm1TAda
        ('test4', 'c4', 0, 'https://drive.google.com/uc?export=view&id=1Xhi9JBcmXplEaRpVLFPW7OtmDHMJdV-N'),
        ('test5', 'c5', 0, 'https://drive.google.com/uc?export=view&id=1mVACW9_e-rZE8mDsA5gnxp7tNNM8PBZy');
 
+INSERT INTO user_characters (phone_number, exp, character_info, character_nickname, img_url, is_active)
+VALUES ('010-0000-0000', 0, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1jsGm1TAdafvJ8jJIK_yBuh-QVtA64pxb', true);
 
-commit
+
+commit;
+
+select character_nickname
+from user_characters
+where user_char_id = 1
 

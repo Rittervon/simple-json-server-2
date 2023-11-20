@@ -2,6 +2,7 @@ package com.uracle.sample.api.walking.service;
 
 import com.uracle.sample.api.walking.mapper.UserCharactersMapper;
 import com.uracle.sample.api.walking.table.UserCharacters;
+import com.uracle.sample.api.walking.table.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class UserCharactersService {
         }
 
         return userCharacters;
+    }
+
+    public UserCharacters selectCharacterById(UserCharacters param) {
+        UserCharacters userCharacter = userCharactersMapper.selectCharacterById(param);
+        if (userCharacter == null) {
+            userCharacter = new UserCharacters();
+        }
+        logger.debug("userCharacter: {}", userCharacter);
+
+        return userCharacter;
     }
 
     public int updateCharacter(UserCharacters param) {
