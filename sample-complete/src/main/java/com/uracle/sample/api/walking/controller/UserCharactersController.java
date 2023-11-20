@@ -2,6 +2,7 @@ package com.uracle.sample.api.walking.controller;
 
 import com.uracle.sample.api.walking.service.UserCharactersService;
 import com.uracle.sample.api.walking.table.UserCharacters;
+import com.uracle.sample.api.walking.table.Users;
 import com.uracle.sample.support.annotation.MSP;
 import com.uracle.sample.support.result.MspResult;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/uchar")
+@CrossOrigin(origins = "http://localhost:5500")
 public class UserCharactersController {
 
     @Autowired
@@ -45,6 +47,23 @@ public class UserCharactersController {
         List<UserCharacters> body = userCharactersService.selectUserCharacter();
 
         if (body.size() > 0) {
+            result = makeResult(body);
+        } else {
+            result = makeResult("8888", "등록된 사용자가 없음", body);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/{user_char_id}")
+    public ResponseEntity<MspResult> selectCharacterById(@PathVariable("user_char_id") int id) {
+        MspResult result;
+
+        UserCharacters param = new UserCharacters();
+        param.setUser_char_id(id);
+        String body = userCharactersService.selectCharacterById(param).getCharacter_nickname();
+
+        if (body != null) {
             result = makeResult(body);
         } else {
             result = makeResult("8888", "등록된 사용자가 없음", body);

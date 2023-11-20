@@ -11,19 +11,22 @@
       href="https://fonts.googleapis.com/css2?family=Hahmlet&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Hahmlet&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hahmlet&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Main Page</title>
     <style>
-      @font-face{
-        font-family: 'NanumSquare'; 
-        src: url(NanumSquareR.eot?#iefix) format('embedded-opentype'), 
-        url(NanumSquareR.otf) format('otf'), 
-        url(NanumSquareR.ttf) format('truetype'); 
+      @font-face {
+        font-family: "NanumSquare";
+        src: url(NanumSquareR.eot?#iefix) format("embedded-opentype"),
+          url(NanumSquareR.otf) format("otf"),
+          url(NanumSquareR.ttf) format("truetype");
       }
-      /* body {
-        font-family: 'Hahmlet', serif;
-      } */
+      body {
+        margin: 0;
+      }
       .map_wrap,
       .map_wrap * {
         font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
@@ -38,42 +41,19 @@
         height: 800px;
       }
 
-      #menu_wrap {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        height: 25px;
-        overflow-y: hidden;
-        background: rgba(255, 255, 255, 0.7);
-        z-index: 1;
-        font-size: 12px;
-        border-radius: 10px;
-        display: block;
-      }
-
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        border: none;
         background-color: transparent;
-        z-index: 2;
+        border: none;
+      }
+
+      #toggleMapButton {
         cursor: pointer;
+        z-index: 2;
+        position: absolute;
+        top: 120px;
+        right: 10px;
       }
-
-      #menu_wrap .option {
-        text-align: center;
-      }
-      #menu_wrap .option p {
-        margin: 10px 0;
-      }
-      #menu_wrap .option button {
-        margin-left: 5px;
-      }
-
       #placesList li {
         list-style: none;
       }
@@ -180,7 +160,7 @@
         width: 100%;
         background: rgba(255, 255, 255, 0.7);
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         overflow-y: scroll;
         height: 300px;
         visibility: hidden;
@@ -188,12 +168,9 @@
       .info {
         background-color: rgba(255, 255, 255, 0.1);
       }
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        position: absolute;
-        border: none;
-        background-color: transparent;
-        right: 10px;
+      #searchCloseButton {
+        cursor: pointer;
+        float: right;
       }
 
       .custom_zoomcontrol {
@@ -224,8 +201,12 @@
       }
       #map {
         transition: width 0.5s, height 0.5s;
+        width: 100%;
+        height: 98%;
+        position: relative;
+        overflow: hidden;
       }
-      
+
       #keyword {
         border-radius: 30px;
         background-image: url(https://drive.google.com/uc?export=view&id=1I_17f0kaVwSSmS8SvlHuRSbZZEvloXUe);
@@ -247,14 +228,15 @@
         border-radius: 30px;
         float: right;
       }
-      #footbar{
+      #footbar {
         background: olive;
         position: fixed;
         bottom: 1px;
         width: 100%;
       }
       #footbar ul {
-        margin: 0; padding: 0;
+        margin: 0;
+        padding: 0;
         display: flex;
         justify-content: space-around;
       }
@@ -267,10 +249,9 @@
         color: white;
         text-decoration: none;
       }
-
     </style>
   </head>
-  <body style="margin: 0px">
+  <body>
     <!--로고 가운데-->
     <div style="text-align: center">
       <img
@@ -291,26 +272,33 @@
           onkeypress="if( event.keyCode == 13 ){searchPlaces()}
         document.getElementById('searchResult').style.visibility = 'visible';"
         />
-        <!-- <button type="submit" id="searchButton">검색하기</button> -->
       </form>
       <hr />
       <div id="searchResult">
-        <button class="material-symbols-outlined" id="searchCloseButton" onclick="closeSearchResult()">close</button>
+        <button
+          class="material-symbols-outlined"
+          id="searchCloseButton"
+          onclick="closeSearchResult()"
+        >
+          close
+        </button>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
+      </div>
     </div>
 
+    <button
+      class="material-symbols-outlined"
+      id="toggleMapButton"
+      onclick="toggleMapSize()"
+    >
+      zoom_out_map
+    </button>
+
     <div class="map_wrap">
-      <div
-        id="map"
-        style="width: 100%; height: 98%; position: relative; overflow: hidden"
-      ></div>
-      <button class="material-symbols-outlined" onclick="toggleMapSize()">
-        zoom_out_map
-      </button>
+      <div id="map"></div>
     </div>
-    </div>
-    
+
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d9a0cfe3be05ccad5e8bf66f0ef8148&libraries=services"
@@ -328,7 +316,8 @@
       // 지도를 생성합니다
       var map = new kakao.maps.Map(mapContainer, mapOption);
 
-      var imageSrc = "https://drive.google.com/uc?export=view&id=1umleG2KLDXHQC6xg0rZiFQOMEeau3K-J", // 마커이미지의 주소입니다
+      var imageSrc =
+          "https://drive.google.com/uc?export=view&id=1umleG2KLDXHQC6xg0rZiFQOMEeau3K-J", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
         imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -410,16 +399,15 @@
           searchResult.style.visibility = "visible";
         });
 
-        function closeSearchResult() {
-    removeMarker();
-    var searchResult = document.querySelector("#searchResult");
-    searchResult.style.visibility = "hidden";
-};
+      function closeSearchResult() {
+        removeMarker();
+        var searchResult = document.querySelector("#searchResult");
+        searchResult.style.visibility = "hidden";
+      }
 
       // 검색 결과 목록과 마커를 표출하는 함수입니다
       function displayPlaces(places) {
         var listEl = document.getElementById("placesList"),
-          menuEl = document.getElementById("menu_wrap"),
           fragment = document.createDocumentFragment(),
           bounds = new kakao.maps.LatLngBounds(),
           listStr = "";
@@ -611,26 +599,17 @@
 
       // Toggle map size function
       function toggleMapSize() {
+        var optionMap = document.getElementsByClassName("option");
         var mapContainer = document.getElementById("map");
-        var menuWrap = document.getElementById("menu_wrap");
-        var leftDiv = document.querySelector(".left");
-        var rightDiv = document.querySelector(".right");
 
         if (isMapExpanded) {
           // Reduce map size
           mapContainer.style.width = "200%";
           mapContainer.style.height = "200%";
-          //menuWrap.style.display = "none";
-          leftDiv.style.display = "none";
-          rightDiv.style.display = "none";
         } else {
           // Expand map size
           mapContainer.style.width = "100%";
           mapContainer.style.height = "100%";
-          menuWrap.style.top = "0px";
-          menuWrap.style.display = "block";
-          leftDiv.style.display = "block";
-          rightDiv.style.display = "block";
         }
 
         // Toggle the map size state

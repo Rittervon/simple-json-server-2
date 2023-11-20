@@ -76,91 +76,37 @@
         color: black;
         text-decoration: none;
       }
-      /* meter 크기 설정 */
-meter {
-    width: 100%;
-    height: 50px;
-}
-/* 팝업 창 스타일 */
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    border: 1px solid #ccc;
-    background: #fff;
-    z-index: 1;
-    text-align: center; /* Center the content */
-}
-
-/* 닫기 버튼 스타일 */
-.close {
-    position: absolute;
-    top: 1px;
-    right: 2px;
-    font-size: 20px;
-    cursor: pointer;
-}
-/* +, - 버튼 스타일 */
-.popup button {
-    font-size: 18px;
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div class="box1">
+    <p id="charName">캐릭터 이름</p>
+    <img id="charImg" src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th">
+    <div id="exp"></div>
+    <div id="expBox"></div>
     
-    cursor: pointer;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
-}
-    </style>
-    <title>Document</title>
-  </head>
-  <body style="margin: 0">
-    <div class="box1">
-      <p id="charName">캐릭터 이름</p>
-      <img
-        id="charImg"
-        src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th"/>
-        <!-- 경험치 바 내용 -->
-        <div class="exp-bar" onclick="openPopup()">
-          <meter class="expMeter" value="50" min="0" max="100">60%</meter>
-        </div>
-
-      <!-- 팝업 창 -->
-    <div id="popup" class="popup">
-      <span class="close" onclick="closePopup()">&times;</span>
-      <!-- 팝업 내용 -->
-      <p>경험치 조절</p>
-      <input type="number" id="experienceInput" min="0" max="100" step="10" oninput="updateMeterValue($(expMeter.value))"><br>
-      <button onclick="decreaseExperience()">-</button>
-      <button onclick="increaseExperience()">+</button>
-      <div class="exp-bar">
-        <meter id="expMeter" value="60" min="0" max="100">60%</meter>
-      </div>
+  </div>
+  <div class="box2">
+    <div id=record>
+      <p id="date">2023-12-12</p>
+      <p id="place">경일대학교 학생회관</p>
     </div>
-    
+    <div id=record>
+      <p id="date">2023-12-12</p>
+      <p id="place">경일대학교 학생회관</p>
     </div>
-    <div class="box2">
-      <div id="record">
-        <p id="date">2023-12-12</p>
-        <p id="place">경일대학교 학생회관</p>
-      </div>
-      <div id="record">
-        <p id="date">2023-12-12</p>
-        <p id="place">경일대학교 학생회관</p>
-      </div>
-      <div id="record">
-        <p id="date">2023-12-12</p>
-        <p id="place">경일대학교 학생회관</p>
-      </div>
-      <div id="record">
-        <p id="date">2023-12-12</p>
-        <p id="place">경일대학교 학생회관</p>
-      </div>
+    <div id=record>
+      <p id="date">2023-12-12</p>
+      <p id="place">경일대학교 학생회관</p>
     </div>
-  </body>
-
+    <div id=record>
+      <p id="date">2023-12-12</p>
+      <p id="place">경일대학교 학생회관</p>
+    </div>
+  </div>
+</body>
+<footer>
   <nav id="footbar">
     <ul>
       <li>
@@ -176,47 +122,3 @@ meter {
     </ul>
   </nav>
 </html>
-<script>
-
-  var expMeter = document.getElementsByClassName("expMeter")
-  expMeter.value = 30;
-  // 팝업 열기
-function openPopup() {
-document.getElementById("popup").style.display = "block";
-}
-
-// 팝업 닫기
-function closePopup() {
-document.getElementById("popup").style.display = "none";
-}
-
-// 경험치 증가
-function increaseExperience() {
-  var inputElement = document.getElementById("experienceInput");
-  var meterElement = document.getElementById("expMeter");
-
-  var currentValue = parseInt(inputElement.value, 10);
-  if (currentValue < 100) {
-    inputElement.value = currentValue + 10;
-    updateMeterValue(inputElement.value);
-  }
-}
-
-// 경험치 감소
-function decreaseExperience() {
-  var inputElement = document.getElementById("experienceInput");
-  var meterElement = document.getElementById("expMeter");
-
-  var currentValue = parseInt(inputElement.value, 10);
-  if (currentValue > 0) {
-    inputElement.value = currentValue - 10;
-    updateMeterValue(inputElement.value);
-  }
-}
-// 경험치 입력값 업데이트
-function updateMeterValue(value) {
-  var meterElement = document.getElementById("expMeter");
-  meterElement.value = value;
-  meterElement.innerHTML = value + "%";
-}
-</script>
