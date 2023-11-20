@@ -36,17 +36,16 @@
         align-items: center;
       }
 
-      .dexContainer {
-        width: 80%;
-        background-color: #ecf0f3;
-        border-radius: 50px;
-        opacity: 0.5;
-        margin: 20px auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        background-image: url();
-      }
+    .dex-container {
+      width: 80%;
+      background-color: gray;
+      border-radius: 50px;
+      opacity: 0.5;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
 
       .imageContent {
         width: 36%;
@@ -54,8 +53,9 @@
         margin: 20px;
         cursor: pointer;
         border-radius: 20px;
-        background-color: #ecf0f3;
-        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
+        filter: grayscale(0%);
+        background-color: #d8d8d8;
+        box-shadow: 18px 18px 30px #d1d9e6;
       }
 
       #gachaButton {
@@ -65,18 +65,18 @@
         display: block;
         border-radius: 16px;
         background-color: #ecf0f3;
-        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
         border: none;
+        box-shadow: 18px 18px 30px #d1d9e6;
         cursor: pointer;
       }
 
       #footbar {
-        background: #ecf0f3;
-        box-shadow: 0px -5px 15px #d1d9e6;
-        position: absolute;
-        bottom: 0;
-        left: 0;
+        background: olive;
+        position: fixed;
+        bottom: 0; /* Change from 1px to 0 */
         width: 100%;
+        display: flex;
+        justify-content: start; /* Center the content horizontally */
       }
 
       #footbar ul {
@@ -84,19 +84,18 @@
         padding: 0;
         display: flex;
         justify-content: space-around;
+        align-items: center; 
       }
 
       #footbar ul li {
         display: inline-block;
         list-style-type: none;
-        margin-right: 15px;
+        padding: 0px 15px;
       }
 
       #footbar ul li a {
-        color: #333;
-        font-weight: bold;
+        color: white;
         text-decoration: none;
-        box-shadow: 4px 4px 8px #c2c9d4
       }
     </style>
   </head>
@@ -122,12 +121,16 @@
       />
     </div>
     <div>
-      <button id="gachaButton">
-        <span class="material-symbols-outlined"> pets </span
-        ><span> 캐릭터 뽑기</span>
-      </button>
+      도감
     </div>
-  </body>
+    <!--메인 화면으로 넘어가기-->
+  </div>
+  <div class="dex-container">
+    <img id="img_1" class="dex-image" />
+    <img id="img_2" class="dex-image" />
+    <img id="img_3" class="dex-image" />
+    <img id="img_4" class="dex-image" />
+  </div>
   <footer>
     <nav id="footbar">
       <ul>
@@ -137,10 +140,32 @@
       </ul>
     </nav>
   </footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
-    var ownedCharacter = document.querySelectorAll(".imageContent.owned");
-    ownedCharacter.forEach(function (image) {
-      image.style.filter = "grayscale(100%)";
-    });
+    $(document).ready(function() {
+      loadChar('img_1',1)
+      loadChar('img_2',2)
+      loadChar('img_3',3)
+      loadChar('img_4',4)
+    })
+    function loadChar(id, charId) {
+      let url;
+      $.ajax({
+        url: "http://localhost:8888/chars/"+charId // Http 요청보낼 서버Url
+        , method: "GET" // http 요청 메소드(GET, POST 등)
+        , async: true // 비동기여부
+        , dataType: "json" // 서버에서 응답하여 보내줄 데이터타입
+        , data: {}
+        , success: function (data, status) { // 요청성공하면 실행될 함수
+          $('#'+id).attr('src',data.body.img_url)
+        }
+        , fail: function (jqXhr, status, errorThrown) { // 요청실패하면 실행될 함수
+          alert("실패했습니다. (error : " + errorThrown + " )");
+        }
+      });
+      
+    }
   </script>
 </html>
