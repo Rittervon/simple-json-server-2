@@ -11,5 +11,7 @@ public interface UserCharactersMapper {
     /*################## UserCharacters #####################*/
     Integer getCharacter(UserCharacters userCharacter);
     List<UserCharacters> selectUserCharacter();
+
+    UserCharacters selectCharacterById(UserCharacters userCharacter);
     Integer updateCharacter(UserCharacters userCharacter);
 }

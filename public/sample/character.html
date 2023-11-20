@@ -89,15 +89,19 @@
       }
   </style>
   <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
   <div class="box1">
-    <p id="charName">캐릭터 이름</p>
+    <p id="charName"></p>
     <img id="charImg" src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th">
     <div id="exp"></div>
     <div id="expBox"></div>
     
   </div>
+  <script>
+    $('#charName').html("http://localhost:8888/uchar/1")
+  </script>
   <div class="box2">
     <div id=record>
       <p id="date">2023-12-12</p>
