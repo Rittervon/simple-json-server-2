@@ -18,7 +18,6 @@
         background-color: #d2deef;
         display: flex;
         flex-direction: column;
-        align-items: center;
       }
 
       .material-symbols-outlined {
@@ -28,11 +27,12 @@
       .dex-title {
         text-align: center;
         font-size: 50px;
-        width: 80%;
-        border-radius: 16px;
+        border-radius: 36px;
         background-color: #ecf0f3;
         box-shadow: 18px 18px 30px #d1d9e6;
         margin-bottom: 10px;
+        display: block;
+        align-items: center;
       }
 
       .dexContainer {
@@ -72,27 +72,22 @@
 
       #footbar {
         background: olive;
-        position: fixed;
-        bottom: 0; /* Change from 1px to 0 */
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        display: flex;
-        justify-content: start; /* Center the content horizontally */
       }
-
       #footbar ul {
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: space-around;
-        align-items: center; 
       }
-
       #footbar ul li {
-        display: inline-block;
-        list-style-type: none;
+        display: inline-block; /*새 줄로 넘어가지 않게*/
+        list-style-type: none; /* 마커 삭제 */
         padding: 0px 15px;
       }
-
       #footbar ul li a {
         color: white;
         text-decoration: none;
