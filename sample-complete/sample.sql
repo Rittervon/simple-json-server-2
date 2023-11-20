@@ -1,11 +1,15 @@
 DROP TABLE IF EXISTS user_stations;
 DROP TABLE IF EXISTS stations;
-DROP TABLE IF EXISTS user_characters;
+DROP TABLE IF EXISTS user_background_states;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS search_history;
 DROP TABLE IF EXISTS background_task_logs;
 DROP TABLE IF EXISTS user_achievements;
-DROP TABLE IF EXISTS user_background_states;
+ALTER TABLE users
+    DROP CONSTRAINT IF EXISTS user_char_id;
+ALTER TABLE users
+    DROP COLUMN IF EXISTS user_char_id;
+DROP TABLE IF EXISTS user_characters;
 DROP TABLE IF EXISTS users;
 
 -- 사용자 테이블 생성
@@ -13,6 +17,7 @@ CREATE TABLE users
 (
     phone_number        character varying(255) NOT NULL UNIQUE,
     name_or_id          character varying(255) NOT NULL,
+    user_char_id        bigint,
     registration_date   timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
 
@@ -29,6 +34,11 @@ CREATE TABLE user_characters
     is_active           boolean,
     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
+
+ALTER TABLE users
+    ADD CONSTRAINT user_char_id
+    FOREIGN KEY (user_char_id)
+    REFERENCES user_characters (user_char_id);
 
 -- 캐릭터 정보 테이블
 CREATE TABLE characters
@@ -107,19 +117,26 @@ INSERT INTO users (phone_number, name_or_id)
 VALUES ('010-0000-0000', 'user01');
 
 INSERT INTO characters (character_info, character_name, required_points, img_url)
-VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1jsGm1TAdafvJ8jJIK_yBuh-QVtA64pxb'),
-       ('test2', 'c2', 0, 'https://drive.google.com/uc?export=view&id=1rPwp8J5dzrjq7kbfyqOgKQRbbcX7BxgO'),
-       ('test3', 'c3', 0, 'https://drive.google.com/uc?export=view&id=1lZ6Jr5hgNGFck0qr7b6Ykp7gUk_Dv2Zz'),
-       ('test4', 'c4', 0, 'https://drive.google.com/uc?export=view&id=1Xhi9JBcmXplEaRpVLFPW7OtmDHMJdV-N'),
+VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th'),
+       ('test2', 'c2', 0, 'https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn'),
+       ('test3', 'c3', 0, 'https://drive.google.com/uc?export=view&id=1qNSnDLT9BJD2tceLRzHbBX536KZevnn_'),
+       ('test4', 'c4', 0, 'https://drive.google.com/uc?export=view&id=1koTVy87I9_thCsg-Mq1bRf-U5QS6yfWW'),
        ('test5', 'c5', 0, 'https://drive.google.com/uc?export=view&id=1mVACW9_e-rZE8mDsA5gnxp7tNNM8PBZy');
 
 INSERT INTO user_characters (phone_number, exp, character_info, character_nickname, img_url, is_active)
-VALUES ('010-0000-0000', 0, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1jsGm1TAdafvJ8jJIK_yBuh-QVtA64pxb', true);
+VALUES ('010-0000-0000', 0, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th', true);
+
+UPDATE users
+SET user_char_id = (
+    SELECT user_char_id
+    FROM user_characters
+    WHERE is_active = TRUE
+    )
+WHERE phone_number = '010-0000-0000';
 
 
 commit;
 
-select character_nickname
-from user_characters
-where user_char_id = 1
+select *
+from users
 
