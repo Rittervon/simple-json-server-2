@@ -16,15 +16,23 @@
         font-family: "Nanum Gothic", sans-serif;
         font-family: "Noto Sans KR", sans-serif;
         background-color: #d2deef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
+
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
       }
-      
+
       .dex-title {
         text-align: center;
         font-size: 50px;
+        width: 80%;
+        border-radius: 16px;
         background-color: #ecf0f3;
+        box-shadow: 18px 18px 30px #d1d9e6;
+        margin-bottom: 10px;
       }
 
       .dexContainer {
@@ -32,24 +40,29 @@
         background-color: #ecf0f3;
         border-radius: 50px;
         opacity: 0.5;
-        margin: 0 auto;
+        margin: 20px auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         background-image: url();
       }
+
       .imageContent {
         width: 36%;
         height: 40%;
         margin: 20px;
         cursor: pointer;
+        border-radius: 20px;
         filter: grayscale(0%);
+        background-color: #d8d8d8;
+        box-shadow: 18px 18px 30px #d1d9e6;
       }
 
       #gachaButton {
         width: 200px;
         height: 100px;
-        margin: 20px;
+        margin: 20px auto;
+        display: block;
         border-radius: 16px;
         background-color: #ecf0f3;
         border: none;
@@ -60,20 +73,26 @@
       #footbar {
         background: olive;
         position: fixed;
-        bottom: 1px;
+        bottom: 0; /* Change from 1px to 0 */
         width: 100%;
+        display: flex;
+        justify-content: start; /* Center the content horizontally */
       }
+
       #footbar ul {
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: space-around;
+        align-items: center; 
       }
+
       #footbar ul li {
         display: inline-block;
         list-style-type: none;
         padding: 0px 15px;
       }
+
       #footbar ul li a {
         color: white;
         text-decoration: none;
@@ -81,9 +100,7 @@
     </style>
   </head>
   <body>
-    <div class="dex-title">
-      도감
-    </div>
+    <div class="dex-title">도감</div>
     <div class="dexContainer">
       <img
         class="imageContent"
