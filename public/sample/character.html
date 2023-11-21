@@ -94,15 +94,42 @@
 </head>
 <body>
   <div class="box1">
-    <p id="charName"></p>
+    <p id="charName" onclick="changeName()"></p>
     <img id="charImg" src="">
     <div id="exp"></div>
     <div id="expBox"></div>
     
   </div>
-  <!-- <script>
-    $('#charName').html("http://localhost:8888/uchar/1")
-  </script> -->
+   <script>
+    function changeName() {
+      let newCharName = prompt("Enter the new name for your character:");
+
+    if (newCharName !== null) {  // Check if the user clicked 'Cancel'
+        // Assuming you have a function to update the character name in the server
+        console.log(newCharName);
+        
+    }
+  }
+        updateCharacterName(activeCharId, newCharName);
+    
+    
+    function updateCharacterName(charId, newName) {
+    // Assuming you have an API endpoint for updating the character name
+    $.ajax({
+        url: "http://localhost:8888/updatecharname/" + charId,
+        method: "POST",
+        dataType: "json",
+        data: {}, // You might need to adjust this based on your server requirements
+        success: function (data, status) {
+            console.log("Character name updated successfully!");
+            // Optionally, update the UI to reflect the new name
+        },
+        error: function (jqXhr, status, errorThrown) {
+            alert("Failed to update character name. (error: " + errorThrown + ")");
+        }
+    });
+  }
+  </script> 
   <script>
     $(document).ready(function() {
       loadChar('charImg',1)
