@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS user_stations;
 DROP TABLE IF EXISTS stations;
+DROP TABLE IF EXISTS user_background_states;
+DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS search_history;
 DROP TABLE IF EXISTS background_task_logs;
 DROP TABLE IF EXISTS user_achievements;
@@ -10,7 +12,6 @@ ALTER TABLE users
     DROP
         COLUMN IF EXISTS user_char_id;
 DROP TABLE IF EXISTS user_characters;
-DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS users;
 
 -- 사용자 테이블 생성
@@ -21,7 +22,24 @@ CREATE TABLE users
     user_char_id      bigint,
     registration_date timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
+-- 캐릭터 테이블
+CREATE TABLE user_characters
+(
+    user_char_id        bigint AUTO_INCREMENT PRIMARY KEY,
+    phone_number        character varying(255),
+    exp                 int,
+    character_info      character varying(1024),
+    character_nickname  character varying(255),
+    acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
+    img_url         character varying(255),
+    is_active           boolean,
+    FOREIGN KEY (phone_number) REFERENCES users (phone_number)
+);
 
+ALTER TABLE users
+    ADD CONSTRAINT user_char_id
+    FOREIGN KEY (user_char_id)
+    REFERENCES user_characters (user_char_id);
 -- 캐릭터 정보 테이블
 CREATE TABLE characters
 (
@@ -52,8 +70,6 @@ ALTER TABLE users
     ADD CONSTRAINT user_char_id
         FOREIGN KEY (user_char_id)
             REFERENCES user_characters (user_char_id);
-
-
 -- 산책지점 테이블
 CREATE TABLE stations
 (
@@ -161,6 +177,9 @@ VALUES ('010-0000-0000', 35.910028826785364, 128.80051841346608, '세븐일레�
        ('010-0000-0000', 35.90383688436267, 128.80075744863962, 'GS25 경일대정문점'), -- GS25 경일대정문점
        ('010-0000-0000', 35.90392406965374, 128.8005019121349, 'CU 경일대정문점'); -- CU 경일대정문점
 
+INSERT INTO user_characters (phone_number, exp, character_info, character_nickname, img_url, is_active)
+VALUES ('010-0000-0000', 0, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th', true);
+
 
 UPDATE users
 SET user_char_id = (SELECT user_char_id
@@ -191,4 +210,7 @@ commit;
 SELECT characters.char_id
 FROM characters
          JOIN user_characters
-              ON characters.char_id = user_characters.char_id;
+              ON characters.char_id = user_characters.user_char_id;
+
+select *
+from users;
