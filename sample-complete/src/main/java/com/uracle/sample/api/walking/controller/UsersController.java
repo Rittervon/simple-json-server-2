@@ -70,7 +70,6 @@ public class UsersController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
     @PostMapping("/{phone_number}")
     public ResponseEntity<MspResult> editUser(@PathVariable("phone_number") String id, @RequestBody Users param) {
         MspResult result;

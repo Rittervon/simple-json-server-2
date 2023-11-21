@@ -1,92 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="viewport" content="initial-scale=1, width=device-width, user-scalable=no"/>
-  <style>
-    .box1{
-      margin-left: 3%;
-      margin-right: 3%;
-      text-align: center;
-    }
-    #charName{
-      margin-top: 3%;
-      margin-bottom: 3%;
-      border: 2px solid black;
-      border-radius: 50px;
-      padding: 3%;
-      font-size: 250%;
-    }
-    #back{
-      width: 15%;
-      float: left;
-    }
-    #book{
-      padding-top: 5%;
-      padding-bottom: 5%;
-      font-size: 150%;
-      width: 20%;
-      height: 20%;
-      float: right;
-      border: 0px solid #4c9ace;
-      border-radius: 20px;
-      background-color: #4c9ace;
-    }
-    #charImg{
-      margin-top: 40%;
-      margin-bottom: 10%;
-      width: 50%;
-    }
-    #expBox{
-      border: 2px solid #000;
-      height: 20px;
-      width: 100%;
-      position: relative;
-      box-sizing: border-box;
-    }
-    #exp{
-      background-color: #2c75a5;
-      float: left;
-      width: 90%;
-      height: 20px;
-      margin: 0%;
-      position: relative;
-    }
-    .box2{
-      margin: 10% 3% 3%;
-      overflow-y: scroll;
-      height: 320px;
-    }
-    #record{
-      width: 100%;
-      margin-bottom: 3%;
-      border: 3px solid #7f7f7f;
-      border-radius: 10px;
-      padding: 3%;
-      font-size: 100%;
-      box-sizing: border-box;
-    }
-    #footbar{
-        background: olive;
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>캐릭터 도감</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Calistoga&family=Just+Me+Again+Down+Here&family=Nanum+Gothic&family=Noto+Sans+KR:wght@400;800&display=swap");
+
+      body {
+        font-family: "Calistoga", serif;
+        font-family: "Just Me Again Down Here", cursive;
+        font-family: "Nanum Gothic", sans-serif;
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #d2deef;
+        margin: 0;
+      }
+
+      .box1 {
+        margin-left: 3%;
+        margin-right: 3%;
+        text-align: center;
+      }
+
+      #charName {
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 50px;
+        padding: 3%;
+        font-size: 250%;
+        background-color: #ecf0f3;
+        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
+      }
+
+      #charImg {
+        margin-top: 40%;
+        margin-bottom: 10%;
+        width: 50%;
+        border-radius: 20px;
+        background-color: #ecf0f3;
+        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
+      }
+
+      .box2 {
+        margin: 10% 3% 3%;
+        overflow-y: scroll;
+        height: 320px;
+        border-radius: 10px;
+      }
+
+      #record {
+        width: 100%;
+        margin-bottom: 3%;
+        border-radius: 10px;
+        padding: 3%;
+        font-size: 100%;
+        box-sizing: border-box;
+        background-color: #ecf0f3;
+        box-shadow: 5px 5px 10px #c2c9d4, -5px -5px 10px #ffffff;
+      }
+
+      #footbar {
+        background: #ecf0f3;
+        box-shadow: 0px -5px 15px #d1d9e6;
         position: fixed;
-        bottom: 1px;
+        bottom: 0;
+        left: 0;
         width: 100%;
       }
+
       #footbar ul {
-        margin: 0;
-        padding: 0;
+        margin: 0; padding: 0;
         display: flex;
         justify-content: space-around;
       }
+
       #footbar ul li {
-        display: inline-block; /*새 줄로 넘어가지 않게*/
-        list-style-type: none; /* 마커 삭제 */
-        padding: 0px 15px;
+        display: inline-block;
+        list-style-type: none;
+        margin-right: 15px;
       }
+
       #footbar ul li a {
-        color: black;
+        color: #333;
+        font-weight: bold;
         text-decoration: none;
+        box-shadow: 4px 4px 8px #c2c9d4;
       }
   </style>
   <title>Document</title>
@@ -94,32 +96,32 @@
 </head>
 <body>
   <div class="box1">
-    <p id="charName" onclick="changeName()"></p>
+    <p id="charName" onclick=changeName()></p>
     <img id="charImg" src="">
     <div id="exp"></div>
-    <div id="expBox"></div>
+    <div id="expBox" ></div>
     
   </div>
-   <script>
-    function changeName() {
-      let newCharName = prompt("Enter the new name for your character:");
+ 
+  <script>
+
+function changeName() {
+    // Assuming you have an active character ID stored in a variable named 'activeCharId'
+    let newCharName = prompt("변경할 캐릭터 이름을 입력하세요: ");
 
     if (newCharName !== null) {  // Check if the user clicked 'Cancel'
         // Assuming you have a function to update the character name in the server
-        console.log(newCharName);
-        
-    }
-  }
         updateCharacterName(activeCharId, newCharName);
-    
-    
-    function updateCharacterName(charId, newName) {
+    }
+}
+
+function updateCharacterName(charId, newName) {
     // Assuming you have an API endpoint for updating the character name
     $.ajax({
         url: "http://localhost:8888/updatecharname/" + charId,
         method: "POST",
         dataType: "json",
-        data: {}, // You might need to adjust this based on your server requirements
+        data: { newName: newName }, // You might need to adjust this based on your server requirements
         success: function (data, status) {
             console.log("Character name updated successfully!");
             // Optionally, update the UI to reflect the new name
@@ -128,9 +130,9 @@
             alert("Failed to update character name. (error: " + errorThrown + ")");
         }
     });
-  }
-  </script> 
-  <script>
+}
+    
+
     $(document).ready(function() {
       loadChar('charImg',1)
       Charname('charName',1)

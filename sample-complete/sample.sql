@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user_stations;
 DROP TABLE IF EXISTS stations;
-DROP TABLE IF EXISTS user_background_states;
+DROP TABLE IF EXISTS user_characters;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS search_history;
 DROP TABLE IF EXISTS background_task_logs;
@@ -10,6 +10,7 @@ ALTER TABLE users
 ALTER TABLE users
     DROP COLUMN IF EXISTS user_char_id;
 DROP TABLE IF EXISTS user_characters;
+DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS users;
 
 -- 사용자 테이블 생성
@@ -19,20 +20,6 @@ CREATE TABLE users
     name_or_id          character varying(255) NOT NULL,
     user_char_id        bigint,
     registration_date   timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
-);
-
--- 캐릭터 테이블
-CREATE TABLE user_characters
-(
-    user_char_id        bigint AUTO_INCREMENT PRIMARY KEY,
-    phone_number        character varying(255),
-    exp                 int,
-    character_info      character varying(1024),
-    character_nickname  character varying(255),
-    acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
-    img_url         character varying(255),
-    is_active           boolean,
-    FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
 
 ALTER TABLE users
@@ -49,6 +36,28 @@ CREATE TABLE characters
     required_points int,
     img_url         character varying(255)
 );
+
+-- 캐릭터 테이블
+CREATE TABLE user_characters
+(
+    user_char_id        bigint AUTO_INCREMENT PRIMARY KEY,
+    char_id             bigint,
+    phone_number        character varying(255),
+    exp                 int,
+    character_info      character varying(1024),
+    character_nickname  character varying(255),
+    acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
+    img_url                 character varying(255),
+    is_active           boolean,
+    FOREIGN KEY (char_id) REFERENCES characters (char_id),
+    FOREIGN KEY (phone_number) REFERENCES users (phone_number)
+);
+
+ALTER TABLE users
+    ADD CONSTRAINT user_char_id
+        FOREIGN KEY (user_char_id)
+            REFERENCES user_characters (user_char_id);
+
 
 -- 산책지점 테이블
 CREATE TABLE stations
@@ -123,8 +132,22 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmG
        ('test4', 'c4', 0, 'https://drive.google.com/uc?export=view&id=1koTVy87I9_thCsg-Mq1bRf-U5QS6yfWW'),
        ('test5', 'c5', 0, 'https://drive.google.com/uc?export=view&id=1mVACW9_e-rZE8mDsA5gnxp7tNNM8PBZy');
 
-INSERT INTO user_characters (phone_number, exp, character_info, character_nickname, img_url, is_active)
-VALUES ('010-0000-0000', 0, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th', true);
+-- INSERT INTO user_characters (phone_number, exp, char_id, character_info, character_nickname, img_url, is_active)
+-- VALUES ('010-0000-0000', 0, 1, 'test1', 'c1', 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th', false),
+--        ('010-0000-0000', 0, 2, 'test2', 'c2', 'https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn', true);
+
+INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, true
+FROM characters
+where char_id = 1;
+INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, false
+FROM characters
+where char_id = 2;
+
+
+
+
 
 UPDATE users
 SET user_char_id = (
@@ -137,5 +160,32 @@ WHERE phone_number = '010-0000-0000';
 
 commit;
 
+<<<<<<< HEAD
 select *
 from users
+=======
+-- select *
+-- from users;
+--
+-- SELECT user_characters.img_url
+-- FROM users
+--          JOIN user_characters
+--               ON users.user_char_id = user_characters.user_char_id
+-- WHERE users.phone_number = '010-0000-0000';
+--
+-- SELECT *
+-- FROM user_characters
+-- WHERE user_char_id = (
+--     SELECT user_char_id
+--     FROM users
+--     WHERE phone_number = '010-0000-0000'
+--     );
+
+SELECT
+    characters.char_id
+FROM characters
+    JOIN user_characters
+    ON characters.char_id = user_characters.char_id;
+
+
+>>>>>>> ce7db32816680ac1b52edd11d0823939e3981f04

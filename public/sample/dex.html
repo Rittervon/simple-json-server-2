@@ -98,15 +98,16 @@
         text-decoration: none;
         box-shadow: 4px 4px 8px #c2c9d4;
       }
+
     </style>
   </head>
   <body>
     <div class="dex-title">도감</div>
     <div class="dexContainer">
-      <img id="img_1" class="dex-image" />
-      <img id="img_2" class="dex-image" />
-      <img id="img_3" class="dex-image" />
-      <img id="img_4" class="dex-image" />
+      <img id="img_1" class="imageContent" />
+      <img id="img_2" class="imageContent" />
+      <img id="img_3" class="imageContent" />
+      <img id="img_4" class="imageContent" />
     </div>
     <div>
       <button id="gachaButton">
@@ -117,9 +118,22 @@
     <footer>
       <nav id="footbar">
         <ul>
-          <li><a href="./test.html">Home</a></li>
-          <li><a href="./character.html">캐릭터</a></li>
-          <li><a href="./dex.html">도감</a></li>
+          <li>
+            <a href="./test.html"
+              ><span class="material-symbols-outlined"> home </span>홈</a
+            >
+          </li>
+          <li>
+            <a href="./character.html"
+              ><span class="material-symbols-outlined"> pets </span>캐릭터</a
+            >
+          </li>
+          <li>
+            <a href="./dex.html"
+              ><span class="material-symbols-outlined"> dictionary </span
+              >도감</a
+            >
+          </li>
         </ul>
       </nav>
     </footer>
@@ -137,7 +151,7 @@
       loadChar("img_3", 3);
       loadChar("img_4", 4);
     });
-    function loadChar(id, charId) {
+      function loadChar(id, charId) {
       let url;
       $.ajax({
         url: "http://localhost:8888/chars/" + charId, // Http 요청보낼 서버Url
