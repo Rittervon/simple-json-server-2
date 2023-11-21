@@ -10,6 +10,6 @@ public interface UserStationsMapper {
 
     /*################## UserStations #####################*/
     Integer insertUserStation(UserStations userStation);
-    List<UserStations> selectUserStation();
+    UserStations selectUserStation(UserStations userStation);
     Integer clearUserStation(UserStations userStation);
 }

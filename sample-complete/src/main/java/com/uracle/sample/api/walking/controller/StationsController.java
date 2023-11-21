@@ -3,6 +3,7 @@ package com.uracle.sample.api.walking.controller;
 
 import com.uracle.sample.api.walking.service.StationsService;
 import com.uracle.sample.api.walking.table.Stations;
+import com.uracle.sample.api.walking.table.Users;
 import com.uracle.sample.support.annotation.MSP;
 import com.uracle.sample.support.result.MspResult;
 import lombok.extern.slf4j.Slf4j;
@@ -19,21 +20,21 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/stations")
-@CrossOrigin(origins = "http://localhost:5500")
+
 public class StationsController {
     @Autowired
     private StationsService stationsService;
 
-    @PostMapping("")
-    public ResponseEntity<MspResult> initStation(@RequestBody Stations param) {
+    @GetMapping("")
+    public ResponseEntity<MspResult> selectStatioin() {
         MspResult result;
 
-        int affectRow = stationsService.initStation(param);
+        List<Stations> body = stationsService.selectStatioin();
 
-        if (affectRow > 0) {
-            result = makeResult(param);
+        if (body.size() > 0) {
+            result = makeResult(body);
         } else {
-            result = makeResult("9999", "등록 오류", param);
+            result = makeResult("8888", "등록된 사용자가 없음", body);
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
