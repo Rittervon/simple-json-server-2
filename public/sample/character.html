@@ -73,8 +73,7 @@
       }
 
       #footbar ul {
-        margin: 0;
-        padding: 0;
+        margin: 0; padding: 0;
         display: flex;
         justify-content: space-around;
       }
@@ -92,17 +91,60 @@
         box-shadow: 4px 4px 8px #c2c9d4;
       }
     </style>
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <div class="box1">
-      <p id="charName">캐릭터 이름</p>
-      <img
-        id="charImg"
-        src="https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th"
-      />
+      <p id="charName"></p>
+      <img id="charImg" src="" />
       <div id="exp"></div>
       <div id="expBox"></div>
     </div>
+    <!-- <script>
+    $('#charName').html("http://localhost:8888/uchar/1")
+  </script> -->
+    <script>
+      $(document).ready(function () {
+        loadChar("charImg", 1);
+        Charname("charName", 1);
+      });
+      function loadChar(id, charId) {
+        let url;
+        $.ajax({
+          url: "http://localhost:8888/chars/" + charId, // Http 요청보낼 서버Url
+          method: "GET", // http 요청 메소드(GET, POST 등)
+          async: true, // 비동기여부
+          dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
+          data: {},
+          success: function (data, status) {
+            // 요청성공하면 실행될 함수
+            $("#" + id).attr("src", data.body.img_url);
+          },
+          fail: function (jqXhr, status, errorThrown) {
+            // 요청실패하면 실행될 함수
+            alert("실패했습니다. (error : " + errorThrown + " )");
+          },
+        });
+      }
+      function Charname(id, charId) {
+        $.ajax({
+          url: "http://localhost:8888/uchar/" + charId, // Http 요청보낼 서버Url
+          method: "GET", // http 요청 메소드(GET, POST 등)
+          async: true, // 비동기여부
+          dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
+          data: {},
+          success: function (data, status) {
+            // 요청성공하면 실행될 함수
+            $("#" + id).text(data.body);
+          },
+          fail: function (jqXhr, status, errorThrown) {
+            // 요청실패하면 실행될 함수
+            alert("실패했습니다. (error : " + errorThrown + " )");
+          },
+        });
+      }
+    </script>
     <div class="box2">
       <div id="record">
         <p id="date">2023-12-12</p>
@@ -121,27 +163,14 @@
         <p id="place">경일대학교 학생회관</p>
       </div>
     </div>
-    <footer>
-      <nav id="footbar">
-        <ul>
-          <li>
-            <a href="./test.html"
-              ><span class="material-symbols-outlined"> home </span>홈</a
-            >
-          </li>
-          <li>
-            <a href="./character.html"
-              ><span class="material-symbols-outlined"> pets </span>캐릭터</a
-            >
-          </li>
-          <li>
-            <a href="./dex.html"
-              ><span class="material-symbols-outlined"> dictionary </span
-              >도감</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </footer>
   </body>
+  <footer>
+    <nav id="footbar">
+      <ul>
+        <li><a href="./test.html">Home</a></li>
+        <li><a href="./character.html">캐릭터</a></li>
+        <li><a href="./dex.html">도감</a></li>
+      </ul>
+    </nav>
+  </footer>
 </html>
