@@ -137,7 +137,7 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmG
 --        ('010-0000-0000', 0, 2, 'test2', 'c2', 'https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn', true);
 
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, true
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 20, true
 FROM characters
 where char_id = 1;
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)

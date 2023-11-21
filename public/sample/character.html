@@ -58,7 +58,7 @@
         background-color: greenyellow;
         width: 0%;
         height: 20px;
-        border-radius: 20px; /* Match border-radius with #expBox */
+        border-radius: 20px;
       }
 
       .box2 {
@@ -161,18 +161,15 @@
   </body>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
-    $("#charName").html("http://localhost:8888/uchar/1");
-  </script>
-  <script>
     $(document).ready(function () {
-      loadChar("charImg", "010-0000-0000");
-      Charname("charName", "010-0000-0000");
-      updateExpWidth("exp", "010-0000-0000");
+      loadChar("charImg", 1);
+      Charname("charName", 1);
+      updateExpWidth("exp", 1);
     });
-    function loadChar(id, userId) {
+    function loadChar(id, charId) {
       let url;
       $.ajax({
-        url: "http://localhost:8888/uchar/" + userId, // Http 요청보낼 서버Url
+        url: "http://localhost:8888/chars/" + charId, // Http 요청보낼 서버Url
         method: "GET", // http 요청 메소드(GET, POST 등)
         async: true, // 비동기여부
         dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
@@ -187,16 +184,16 @@
         },
       });
     }
-    function Charname(id, userId) {
+    function Charname(id, charId) {
       $.ajax({
-        url: "http://localhost:8888/uchar/" + userId, // Http 요청보낼 서버Url
+        url: "http://localhost:8888/uchar/" + charId, // Http 요청보낼 서버Url
         method: "GET", // http 요청 메소드(GET, POST 등)
         async: true, // 비동기여부
         dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
         data: {},
         success: function (data, status) {
           // 요청성공하면 실행될 함수
-          $("#" + id).text(data.body.character_nickname);
+          $("#" + id).text(data.body);
         },
         fail: function (jqXhr, status, errorThrown) {
           // 요청실패하면 실행될 함수
@@ -205,22 +202,21 @@
       });
     }
 
-    // 경험치를 가져와 표시하는 함수
-    function updateExpWidth(id, userId) {
-        $.ajax({
-          url: "http://localhost:8888/uchar/" + userId,
-          method: "GET",
-          async: true,
-          dataType: "json",
-          data: {},
-          success: function (data, status) {
-            const expPercentage = data.body.exp;
-            $("#" + id).css("width", expPercentage + "%");
-          },
-          fail: function (jqXhr, status, errorThrown) {
-            alert("실패했습니다. (error : " + errorThrown + " )");
-          },
-        });
-      }
+    function updateExpWidth(exp, charId) {
+      $.ajax({
+        url: "http://localhost:8888/uchar/" + charId,
+        method: "GET",
+        async: true,
+        dataType: "json",
+        data: {},
+        success: function (data, status) {
+          let expPercentage = (data.body.exp);
+          $("#" + exp).css("width", expPercentage + "%");
+        },
+        fail: function (jqXhr, status, errorThrown) {
+          alert("실패했습니다. (error : " + errorThrown + " )");
+        },
+      });
+    }
   </script>
 </html>
