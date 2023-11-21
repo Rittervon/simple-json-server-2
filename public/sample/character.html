@@ -21,6 +21,7 @@
       }
 
       .box1 {
+        width: 400px;
         margin-left: 3%;
         margin-right: 3%;
         text-align: center;
@@ -43,6 +44,21 @@
         border-radius: 20px;
         background-color: #ecf0f3;
         box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
+      }
+
+      #expBox {
+        width: 380px;
+        border-radius: 20px;
+        background-color: #ecf0f3;
+        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
+        border: 1px solid black;
+      }
+
+      #exp {
+        background-color: greenyellow;
+        width: 0%;
+        height: 20px;
+        border-radius: 20px; /* Match border-radius with #expBox */
       }
 
       .box2 {
@@ -93,14 +109,14 @@
       }
     </style>
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <div class="box1">
       <p id="charName"></p>
       <img id="charImg" src="" />
-      <div id="exp"></div>
-      <div id="expBox"></div>
+      <div id="expBox">
+        <div id="exp"></div>
+      </div>
     </div>
     <div class="box2">
       <div id="record">
@@ -143,6 +159,7 @@
       </nav>
     </footer>
   </body>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
     $("#charName").html("http://localhost:8888/uchar/1");
   </script>
@@ -150,6 +167,7 @@
     $(document).ready(function () {
       loadChar("charImg", "010-0000-0000");
       Charname("charName", "010-0000-0000");
+      updateExpWidth("exp", "010-0000-0000");
     });
     function loadChar(id, userId) {
       let url;
@@ -186,5 +204,23 @@
         },
       });
     }
+
+    // 경험치를 가져와 표시하는 함수
+    function updateExpWidth(id, userId) {
+        $.ajax({
+          url: "http://localhost:8888/uchar/" + userId,
+          method: "GET",
+          async: true,
+          dataType: "json",
+          data: {},
+          success: function (data, status) {
+            const expPercentage = data.body.exp;
+            $("#" + id).css("width", expPercentage + "%");
+          },
+          fail: function (jqXhr, status, errorThrown) {
+            alert("실패했습니다. (error : " + errorThrown + " )");
+          },
+        });
+      }
   </script>
 </html>
