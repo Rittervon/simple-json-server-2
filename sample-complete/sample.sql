@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS user_stations;
 DROP TABLE IF EXISTS stations;
-DROP TABLE IF EXISTS user_characters;
-DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS search_history;
 DROP TABLE IF EXISTS background_task_logs;
 DROP TABLE IF EXISTS user_achievements;
 ALTER TABLE users
-    DROP CONSTRAINT IF EXISTS user_char_id;
+    DROP
+        CONSTRAINT IF EXISTS user_char_id;
 ALTER TABLE users
-    DROP COLUMN IF EXISTS user_char_id;
+    DROP
+        COLUMN IF EXISTS user_char_id;
 DROP TABLE IF EXISTS user_characters;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS users;
@@ -16,21 +16,16 @@ DROP TABLE IF EXISTS users;
 -- 사용자 테이블 생성
 CREATE TABLE users
 (
-    phone_number        character varying(255) NOT NULL UNIQUE,
-    name_or_id          character varying(255) NOT NULL,
-    user_char_id        bigint,
-    registration_date   timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
+    phone_number      character varying(255) NOT NULL UNIQUE,
+    name_or_id        character varying(255) NOT NULL,
+    user_char_id      bigint,
+    registration_date timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
-
-ALTER TABLE users
-    ADD CONSTRAINT user_char_id
-    FOREIGN KEY (user_char_id)
-    REFERENCES user_characters (user_char_id);
 
 -- 캐릭터 정보 테이블
 CREATE TABLE characters
 (
-    char_id         bigint(64)  auto_increment  PRIMARY KEY,
+    char_id         bigint(64) auto_increment PRIMARY KEY,
     character_info  text,
     character_name  text,
     required_points int,
@@ -40,15 +35,15 @@ CREATE TABLE characters
 -- 캐릭터 테이블
 CREATE TABLE user_characters
 (
-    user_char_id        bigint AUTO_INCREMENT PRIMARY KEY,
-    char_id             bigint,
-    phone_number        character varying(255),
-    exp                 int,
-    character_info      character varying(1024),
-    character_nickname  character varying(255),
-    acquisition_date    timestamp DEFAULT CURRENT_TIMESTAMP(),
-    img_url                 character varying(255),
-    is_active           boolean,
+    user_char_id       bigint AUTO_INCREMENT PRIMARY KEY,
+    char_id            bigint,
+    phone_number       character varying(255),
+    exp                int,
+    character_info     character varying(1024),
+    character_nickname character varying(255),
+    acquisition_date   timestamp DEFAULT CURRENT_TIMESTAMP(),
+    img_url            character varying(255),
+    is_active          boolean,
     FOREIGN KEY (char_id) REFERENCES characters (char_id),
     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
@@ -62,9 +57,10 @@ ALTER TABLE users
 -- 산책지점 테이블
 CREATE TABLE stations
 (
-    latitude  DOUBLE,
+    latitude DOUBLE,
     longitude DOUBLE,
-    points    INT,
+    place_name VARCHAR(255),
+    points     INT,
     PRIMARY KEY (latitude, longitude)
 );
 
@@ -73,11 +69,12 @@ CREATE TABLE user_stations
 (
     user_station_id INT AUTO_INCREMENT PRIMARY KEY,
     phone_number    VARCHAR(255),
-    latitude        DOUBLE,
-    longitude       DOUBLE,
+    latitude DOUBLE,
+    longitude DOUBLE,
+    place_name      VARCHAR(255),
     visit_date      TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-    FOREIGN KEY (latitude, longitude) REFERENCES stations(latitude, longitude),
-    FOREIGN KEY (phone_number) REFERENCES users(phone_number)
+    CONSTRAINT location FOREIGN KEY (latitude, longitude) REFERENCES stations (latitude, longitude),
+    FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 );
 
 -- 검색 이력 테이블
@@ -145,25 +142,35 @@ SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, fal
 FROM characters
 where char_id = 2;
 
+INSERT INTO stations (latitude, longitude, points, place_name)
+VALUES (35.9083169000378, 128.8000559439628, 100, '세븐일레븐 경일대점'),      -- 학교 식당
+       (35.910028826785364, 128.80051841346608, 100, '세븐일레븐 경일대공대점'), --
+       (35.90711447627247, 128.8024211700401, 100, '세븐일레븐 경일대구내점'),   -- 18호관안
+       (35.90383688436267, 128.80075744863962, 100, 'GS25 경일대정문점'),   -- 학교 앞 GS
+       (35.90392406965374, 128.8005019121349, 100, 'CU 경일대정문점'),      -- 학교 앞 CU
+       (35.90186850459353, 128.8013219973928, 100, 'GS25 호산대정문점'),    -- 호산대 앞
+       (35.901181686682406, 128.80010197841105, 100, 'CU 호산대학교점'),    -- 호산대 평생교육원
+       (35.90898774558578, 128.80743424422423, 100, 'GS25 대가대기숙사점'),  -- 대구대 기숙사 앞
+       (35.91177820828526, 128.80673342657622, 100, 'CU 대가대교양관점'),    -- 대구대 우편
+       (35.90796020918426, 128.81193555412446, 100, 'CU 대가대정문점'); -- 대구대 앞
 
-
+INSERT INTO user_stations (phone_number, latitude, longitude, place_name)
+VALUES ('010-0000-0000', 35.910028826785364, 128.80051841346608, '세븐일레븐 경일대공대점'), -- 세븐일레븐 경일대공대점
+       ('010-0000-0000', 35.9083169000378, 128.8000559439628, '세븐일레븐 경일대점'),   -- 세븐일레븐 경일대점
+       ('010-0000-0000', 35.90711447627247, 128.8024211700401, '세븐일레븐 경일대구내점'),  -- 세븐일레븐 경일대구내점
+       ('010-0000-0000', 35.90383688436267, 128.80075744863962, 'GS25 경일대정문점'), -- GS25 경일대정문점
+       ('010-0000-0000', 35.90392406965374, 128.8005019121349, 'CU 경일대정문점'); -- CU 경일대정문점
 
 
 UPDATE users
-SET user_char_id = (
-    SELECT user_char_id
-    FROM user_characters
-    WHERE is_active = TRUE
-    )
+SET user_char_id = (SELECT user_char_id
+                    FROM user_characters
+                    WHERE is_active = TRUE)
 WHERE phone_number = '010-0000-0000';
 
 
 commit;
 
-<<<<<<< HEAD
-select *
-from users
-=======
 -- select *
 -- from users;
 --
@@ -181,11 +188,7 @@ from users
 --     WHERE phone_number = '010-0000-0000'
 --     );
 
-SELECT
-    characters.char_id
+SELECT characters.char_id
 FROM characters
-    JOIN user_characters
-    ON characters.char_id = user_characters.char_id;
-
-
->>>>>>> ce7db32816680ac1b52edd11d0823939e3981f04
+         JOIN user_characters
+              ON characters.char_id = user_characters.char_id;
