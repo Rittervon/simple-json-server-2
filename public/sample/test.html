@@ -25,6 +25,13 @@
           url(NanumSquareR.ttf) format("truetype");
       }
       body {
+        font-family: "Calistoga", serif;
+        font-family: "Just Me Again Down Here", cursive;
+        font-family: "Nanum Gothic", sans-serif;
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #d2deef;
+        display: flex;
+        flex-direction: column;
         margin: 0;
       }
       .map_wrap,
@@ -156,6 +163,12 @@
         color: #777;
       }
 
+      .option > form {
+        border-radius: 20px;
+        background-color: #ecf0f3;
+        box-shadow: 5px 5px 10px #c2c9d4, -5px -5px 10px #ffffff;
+      }
+
       #searchResult {
         width: 100%;
         background: rgba(255, 255, 255, 0.7);
@@ -229,25 +242,33 @@
         float: right;
       }
       #footbar {
-        background: olive;
-        position: fixed;
-        bottom: 1px;
+        background: #ecf0f3;
+        box-shadow: 0px -2px 5px #d1d9e6;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100%;
+        z-index: 1;
       }
+
       #footbar ul {
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: space-around;
       }
+
       #footbar ul li {
-        display: inline-block; /*새 줄로 넘어가지 않게*/
-        list-style-type: none; /* 마커 삭제 */
-        padding: 0px 15px;
+        display: inline-block;
+        list-style-type: none;
+        margin-right: 15px;
       }
+
       #footbar ul li a {
-        color: white;
+        color: #333;
+        font-weight: bold;
         text-decoration: none;
+        box-shadow: 4px 4px 8px #c2c9d4;
       }
     </style>
   </head>
@@ -298,6 +319,30 @@
     <div class="map_wrap">
       <div id="map"></div>
     </div>
+
+    <footer>
+    <nav id="footbar">
+      <ul>
+        <li>
+          <a href="./test.html"
+            ><span class="material-symbols-outlined"> home </span>홈</a
+          >
+        </li>
+        <li>
+          <a href="./character.html"
+            ><span class="material-symbols-outlined"> pets </span>캐릭터</a
+          >
+        </li>
+        <li>
+          <a href="./dex.html"
+            ><span class="material-symbols-outlined"> dictionary </span
+            >도감</a
+          >
+        </li>
+      </ul>
+    </nav>
+    </footer>
+  </body>
 
     <script
       type="text/javascript"
@@ -626,14 +671,4 @@
         map.relayout();
       }
     </script>
-  </body>
-  <footer>
-    <nav id="footbar">
-      <ul>
-        <li><a href="./test.html">Home</a></li>
-        <li><a href="./character.html">캐릭터</a></li>
-        <li><a href="./dex.html">도감</a></li>
-      </ul>
-    </nav>
-  </footer>
 </html>

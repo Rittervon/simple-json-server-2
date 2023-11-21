@@ -55,13 +55,13 @@ public class UserCharactersController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/{user_char_id}")
-    public ResponseEntity<MspResult> selectCharacterById(@PathVariable("user_char_id") int id) {
+    @GetMapping("/{phone_number}")
+    public ResponseEntity<MspResult> getUserCharacterById(@PathVariable("phone_number") String id) {
         MspResult result;
 
         UserCharacters param = new UserCharacters();
-        param.setUser_char_id(id);
-        String body = userCharactersService.selectCharacterById(param).getCharacter_nickname();
+        param.setPhone_number(id);
+        UserCharacters body = userCharactersService.getUserCharacterById(param);
 
         if (body != null) {
             result = makeResult(body);

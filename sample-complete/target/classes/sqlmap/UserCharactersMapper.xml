@@ -18,10 +18,14 @@
         order by user_char_id
     </select>
 
-    <select id="selectCharacterById" resultType="com.uracle.sample.api.walking.table.UserCharacters">
-        select character_nickname
-        from user_characters
-        where user_char_id = #{user_char_id}
+    <select id="getUserCharacterById" resultType="com.uracle.sample.api.walking.table.UserCharacters">
+        SELECT user_char_id, exp, character_nickname, img_url, is_active
+        FROM user_characters
+        WHERE user_char_id = (
+            SELECT user_char_id
+            FROM users
+            WHERE phone_number = #{phone_number}
+        )
     </select>
 
     <update id="updateCharacter" parameterType="com.uracle.sample.api.walking.table.UserCharacters">
