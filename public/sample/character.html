@@ -157,7 +157,7 @@
 </body>
 <script>
   $(document).ready(function () {
-    loadChar('charImg', '010-0000-0000')
+    loadUserChar('charImg', '010-0000-0000')
     Charname('charName', '010-0000-0000')
     loadDate('date', 5)
     loadDate('date', 4)
@@ -165,7 +165,7 @@
     loadDate('date', 2)
     loadDate('date', 1)
   })
-  function loadChar(id, userId) {
+  function loadUserChar(id, userId) {
     let url;
     $.ajax({
       url: "http://localhost:8888/uchar/" + userId // Http 요청보낼 서버Url
@@ -203,7 +203,6 @@
     if (newCharName !== null) {
       // Check if the user clicked 'Cancel'
       // Assuming you have a function to update the character name in the server
-      console.log(newCharName);
       updateCharacterName(charId, newCharName);
     }
   }
@@ -236,7 +235,6 @@
       , dataType: "json" // 서버에서 응답하여 보내줄 데이터타입
       , data: {}
       , success: function (data, status) { // 요청성공하면 실행될 함수
-        console.log(data);
         $('#date' + stationId).html(data.body.visit_date)
         $('#place' + stationId).html(data.body.place_name)
       }

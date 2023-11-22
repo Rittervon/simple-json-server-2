@@ -134,13 +134,21 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmG
 --        ('010-0000-0000', 0, 2, 'test2', 'c2', 'https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn', true);
 
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, true
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 100, true
 FROM characters
 where char_id = 1;
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 0, false
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 200, false
 FROM characters
 where char_id = 2;
+INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 300, false
+FROM characters
+where char_id = 3;
+INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 400, false
+FROM characters
+where char_id = 4;
 
 INSERT INTO stations (latitude, longitude, points, place_name)
 VALUES (35.9083169000378, 128.8000559439628, 100, '세븐일레븐 경일대점'),      -- 학교 식당
