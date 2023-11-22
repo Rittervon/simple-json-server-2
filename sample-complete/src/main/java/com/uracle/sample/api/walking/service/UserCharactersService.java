@@ -34,8 +34,8 @@ public class UserCharactersService {
         return userCharacters;
     }
 
-    public UserCharacters selectCharacterById(UserCharacters param) {
-        UserCharacters userCharacter = userCharactersMapper.selectCharacterById(param);
+    public UserCharacters getUserCharacterById(UserCharacters param) {
+        UserCharacters userCharacter = userCharactersMapper.getUserCharacterById(param);
         if (userCharacter == null) {
             userCharacter = new UserCharacters();
         }

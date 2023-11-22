@@ -113,15 +113,58 @@
       }
     </style>
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <div class="box1">
-      <p id="charName" onclick="changeName(1)"></p>
+      <p id="charName"></p>
       <img id="charImg" src="" />
       <div id="expBox">
         <div id="exp"></div>
       </div>
     </div>
+      <!-- <script>
+    $('#charName').html("http://localhost:8888/uchar/1")
+  </script> -->
+  <script>
+    $(document).ready(function() {
+      loadChar('charImg', '010-0000-0000')
+      Charname('charName','010-0000-0000')
+    })
+    function loadChar(id, userId) {
+      let url;
+      $.ajax({
+        url: "http://localhost:8888/uchar/"+userId // Http 요청보낼 서버Url
+        , method: "GET" // http 요청 메소드(GET, POST 등)
+        , async: true // 비동기여부
+        , dataType: "json" // 서버에서 응답하여 보내줄 데이터타입
+        , data: {}
+        , success: function (data, status) { // 요청성공하면 실행될 함수
+          $('#'+id).attr('src',data.body.img_url)
+        }
+        , fail: function (jqXhr, status, errorThrown) { // 요청실패하면 실행될 함수
+          alert("실패했습니다. (error : " + errorThrown + " )");
+        }
+      });
+    }
+    function Charname(id, userId) {
+      $.ajax({
+        url: "http://localhost:8888/uchar/"+userId // Http 요청보낼 서버Url
+        , method: "GET" // http 요청 메소드(GET, POST 등)
+        , async: true // 비동기여부
+        , dataType: "json" // 서버에서 응답하여 보내줄 데이터타입
+        , data: {}
+        , success: function (data, status) { // 요청성공하면 실행될 함수
+            $('#'+id).text(data.body.character_nickname)
+          }
+        , fail: function (jqXhr, status, errorThrown) { // 요청실패하면 실행될 함수
+            alert("실패했습니다. (error : " + errorThrown + " )");
+          }
+      });
+    }
+
+    
+  </script>
     <div class="box2">
       <div id="record">
         <p id="date5"></p>
@@ -144,115 +187,40 @@
         <p id="place1"></p>
       </div>
     </div>
-    <footer>
-      <nav id="footbar">
-        <ul>
-          <li>
-            <a href="./test.html"
-              ><span class="material-symbols-outlined"> home </span>홈</a
-            >
-          </li>
-          <li>
-            <a href="./character.html"
-              ><span class="material-symbols-outlined"> pets </span>캐릭터</a
-            >
-          </li>
-          <li>
-            <a href="./dex.html"
-              ><span class="material-symbols-outlined"> dictionary </span
-              >도감</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </footer>
+    <script>
+      $(document).ready(function() {
+        loadDate('date', 5)
+        loadDate('date', 4)
+        loadDate('date', 3)
+        loadDate('date', 2)
+        loadDate('date', 1)
+      })
+      function loadDate(id, stationId) {
+        $.ajax({
+          url: "http://localhost:8888/ustations/"+stationId // Http 요청보낼 서버Url
+        , method: "GET" // http 요청 메소드(GET, POST 등)
+        , async: true // 비동기여부
+        , dataType: "json" // 서버에서 응답하여 보내줄 데이터타입
+        , data: {}
+        , success: function (data, status) { // 요청성공하면 실행될 함수
+            console.log(data);
+            $('#date'+stationId).html(data.body.visit_date)
+            $('#place'+stationId).html(data.body.place_name)
+          }
+        , fail: function (jqXhr, status, errorThrown) { // 요청실패하면 실행될 함수
+            alert("실패했습니다. (error : " + errorThrown + " )");
+          }
+      });
+    }
+    </script>
   </body>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script>
-    function Charname(id, charId) {
-      $.ajax({
-        url: "http://localhost:8888/uchar/" + charId, // Http 요청보낼 서버Url
-        method: "GET", // http 요청 메소드(GET, POST 등)
-        async: true, // 비동기여부
-        dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
-        data: {},
-        success: function (data, status) {
-          // 요청성공하면 실행될 함수
-          $("#" + id).text(data.body.character_nickname); // Assuming data.body has the character_nickname property
-        },
-        fail: function (jqXhr, status, errorThrown) {
-          // 요청실패하면 실행될 함수
-          alert("실패했습니다. (error : " + errorThrown + " )");
-        },
-      });
-    }
-
-    function updateExpUI(expValue) {
-      // Update the UI with the fetched exp value
-      $("#exp").css("width", expValue + "%"); // Update the width of your exp bar
-    }
-
-    function updateCharacterName(charId, newCharName) {
-      // Assuming you have an API endpoint for updating the character name
-      $.ajax({
-        url: "http://localhost:8888/uchar/" + charId,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json", // Set the correct content type
-        data: JSON.stringify({ character_nickname: newCharName }), // You might need to adjust this based on your server requirements
-        success: function (data, status) {
-          console.log("Character name updated successfully!", data);
-          //  $('#'+charId).text(data.body.character_nickname)
-
-          document.getElementById("charName").textContent = newCharName; // Update the UI to reflect the new name
-        },
-        error: function (jqXhr, status, errorThrown) {
-          console.error("Failed to update character name.", errorThrown);
-          alert(
-            "Failed to update character name. (error: " + errorThrown + ")"
-          );
-        },
-      });
-    }
-
-    $(document).ready(function () {
-      loadChar("charImg", 1);
-      Charname("charName", 1);
-    });
-    function loadChar(id, charId) {
-      let url;
-      $.ajax({
-        url: "http://localhost:8888/chars/" + charId, // Http 요청보낼 서버Url
-        method: "GET", // http 요청 메소드(GET, POST 등)
-        async: true, // 비동기여부
-        dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
-        data: {},
-        success: function (data, status) {
-          // 요청성공하면 실행될 함수
-          $("#" + id).attr("src", data.body.img_url);
-        },
-        fail: function (jqXhr, status, errorThrown) {
-          // 요청실패하면 실행될 함수
-          alert("실패했습니다. (error : " + errorThrown + " )");
-        },
-      });
-    }
-    function Charname(id, charId) {
-      $.ajax({
-        url: "http://localhost:8888/uchar/" + charId, // Http 요청보낼 서버Url
-        method: "GET", // http 요청 메소드(GET, POST 등)
-        async: true, // 비동기여부
-        dataType: "json", // 서버에서 응답하여 보내줄 데이터타입
-        data: {},
-        success: function (data, status) {
-          // 요청성공하면 실행될 함수
-          $("#" + id).text(data.body);
-        },
-        fail: function (jqXhr, status, errorThrown) {
-          // 요청실패하면 실행될 함수
-          alert("실패했습니다. (error : " + errorThrown + " )");
-        },
-      });
-    }
-  </script>
+  <footer>
+    <nav id="footbar">
+      <ul>
+        <li><a href="./test.html">Home</a></li>
+        <li><a href="./character.html">캐릭터</a></li>
+        <li><a href="./dex.html">도감</a></li>
+      </ul>
+    </nav>
+  </footer>
 </html>
