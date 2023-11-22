@@ -6,8 +6,8 @@
     <!--   #####  UserStations  #####   -->
 
     <insert id="insertUserStation" parameterType="com.uracle.sample.api.walking.table.UserStations">
-        insert into user_stations(phone_number, latitude, longitude, place_name)
-        values(#{phone_number}, #{latitude}, #{longitude}, #{place_name})
+        insert into user_stations(phone_number, latitude, longitude)
+        values(#{phone_number}, #{latitude}, #{longitude})
     </insert>
 
     <select id="selectUserStation" resultType="com.uracle.sample.api.walking.table.UserStations">

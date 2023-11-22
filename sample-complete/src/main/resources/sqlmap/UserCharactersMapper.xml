@@ -11,6 +11,8 @@
         values(#{phone_number}, 0, #{character_info})
     </insert>
 
+
+
     <select id="selectUserCharacter" resultType="com.uracle.sample.api.walking.table.UserCharacters">
         --  특정 User 객체(phone_number(id)로 판별)의 모든 캐릭터를 user_char_id(id)순으로 반환(출력)
         select user_char_id, phone_number, exp, character_info, character_nickname, acquisition_date, is_active
@@ -18,10 +20,14 @@
         order by user_char_id
     </select>
 
-    <select id="selectCharacterById" resultType="com.uracle.sample.api.walking.table.UserCharacters">
-        select character_nickname
-        from user_characters
-        where user_char_id = #{user_char_id}
+    <select id="getUserCharacterById" resultType="com.uracle.sample.api.walking.table.UserCharacters">
+        SELECT user_char_id, exp, character_nickname, img_url, is_active
+        FROM user_characters
+        WHERE user_char_id = (
+            SELECT user_char_id
+            FROM users
+            WHERE phone_number = #{phone_number}
+        )
     </select>
 
     <update id="updateCharacter" parameterType="com.uracle.sample.api.walking.table.UserCharacters">
