@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c1eb4e45-19af-4cdf-9ca8-b562b004bfd5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/api/walking/controller/CharacterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/api/walking/controller/SearchHistoryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/api/walking/mapper/UsersMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/api/walking/mapper/WalkingMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/api/walking/service/UsersService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/com/uracle/sample/support/annotation/MSP.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2YW2q3CPd53W4VyNYiJ8h8UX5jM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "hsm",
+    "last_opened_file_path": "C:/Users/123/Desktop/team pro/test/simple-json-server-2/sample-complete",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c1eb4e45-19af-4cdf-9ca8-b562b004bfd5" name="Changes" comment="" />
+      <created>1700627202135</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700627202135</updated>
+      <workItem from="1700627203129" duration="8000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
