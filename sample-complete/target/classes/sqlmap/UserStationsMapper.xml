@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uracle.sample.api.walking.mapper.UserStationsMapper">
+
+    <!--   #####  UserStations  #####   -->
+
+    <insert id="insertUserStation" parameterType="com.uracle.sample.api.walking.table.UserStations">
+        insert into user_stations(phone_number, latitude, longitude)
+        values(#{phone_number}, #{latitude}, #{longitude})
+    </insert>
+
+    <select id="selectUserStation" resultType="com.uracle.sample.api.walking.table.UserStations">
+        --  특정 User 객체(phone_number(id)로 판별)가 다녀갔던(포인트를 얻었던) 모든 staion을 다녀갔던 순서대로(user_station_id) 반환(출력)
+        select user_station_id, phone_number, latitude, longitude, visit_date, place_name
+        from user_stations
+        where user_station_id = #{user_station_id}
+    </select>
+
+    <delete id="clearUserStation" parameterType="com.uracle.sample.api.walking.table.UserStations">
+        --  특정 User 객체(phone_number(id)로 판별)가 다녀갔던(포인트를 얻었던) 모든 staion 정보를 삭제(station 테이블의 객체가 사라지지는 않음)
+        --  3일에 한번씩(720시간)
+        delete from user_stations
+        where phone_number = #{phone_number}
+    </delete>
+
+</mapper>

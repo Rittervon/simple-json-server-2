@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uracle.sample.api.walking.mapper.UsersMapper">
+
+    <!--   #####  Users  #####   -->
+
+    <insert id="createUser" parameterType="com.uracle.sample.api.walking.table.Users">
+        --  User 객체를 생성
+        insert into users(phone_number, name_or_id)
+        values(#{phone_number}, #{name_or_id})
+    </insert>
+
+    <select id="selectUserById" resultType="com.uracle.sample.api.walking.table.Users">
+        --  특정 phone_number(id)를 가진 User 객체를 반환(출력)
+        select phone_number, name_or_id, registration_date
+        from users
+        where phone_number = #{phone_number}
+    </select>
+
+    <select id="selectUser" resultType="com.uracle.sample.api.walking.table.Users">
+        --  모든 User 객체를 만든 순서대로 반환(출력)
+        select phone_number, name_or_id, registration_date
+        from users
+        order by registration_date
+    </select>
+
+    <update id="editUser" parameterType="com.uracle.sample.api.walking.table.Users">
+        --  특정 phone_number(id)를 가진 User 객체의 값을 수정
+        update users
+        set
+        <if test="phone_number != null and phone_number != ''">
+            phone_number = #{phone_number}
+        </if>
+        <if test="name_or_id != null and name_or_id != ''">
+            name_or_id = #{name_or_id}
+        </if>
+        where phone_number = #{phone_number}
+    </update>
+
+    <delete id="deleteUser" parameterType="com.uracle.sample.api.walking.table.Users">
+        --  특정 phone_number(id)를 가진 User 객체를 삭제
+        delete from users
+        where phone_number = #{phone_number}
+    </delete>
+
+</mapper>
