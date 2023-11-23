@@ -61,6 +61,14 @@
         top: 120px;
         right: 10px;
       }
+
+      #viewDestination {
+        cursor: pointer;
+        z-index: 2;
+        position: absolute;
+        top: 160px;
+        right: 10px;
+      }
       #placesList li {
         list-style: none;
       }
@@ -181,6 +189,14 @@
       .info {
         background-color: rgba(255, 255, 255, 0.1);
       }
+      #saveDestination {
+        cursor: pointer;
+        margin-left: 20px;
+      }
+      #saveDestination:hover {
+        color: red;
+      }
+
       #searchCloseButton {
         cursor: pointer;
         float: right;
@@ -314,6 +330,13 @@
       onclick="toggleMapSize()"
     >
       zoom_out_map
+    </button>
+
+    <button 
+    class="material-symbols-outlined"
+    id="viewDestination"
+    onclick="viewDestinationClick">
+      push_pin
     </button>
 
     <div class="map_wrap">
@@ -523,8 +546,9 @@
             (index + 1) +
             '"></span>' +
             '<div class="info">' +
-            "   <h5>" +
+            "<h5>" +
             places.place_name +
+            '<button class="material-symbols-outlined" id="saveDestination" onclick="saveDestinationClick">push_pin</button>' + 
             "</h5>";
 
         if (places.road_address_name) {
