@@ -44,8 +44,15 @@ public class UserCharactersService {
         return userCharacter;
     }
 
-    public int updateCharacter(UserCharacters param) {
-        int affectRow = userCharactersMapper.updateCharacter(param);
+    public int updateCharacterName(UserCharacters param) {
+        int affectRow = userCharactersMapper.updateCharacterName(param);
+        logger.debug("update count: {}", affectRow);
+
+        return affectRow;
+    }
+
+    public int updateCharacterExp(UserCharacters param) {
+        int affectRow = userCharactersMapper.updateCharacterExp(param);
         logger.debug("update count: {}", affectRow);
 
         return affectRow;

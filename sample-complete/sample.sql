@@ -4,11 +4,10 @@ DROP TABLE IF EXISTS search_history;
 DROP TABLE IF EXISTS background_task_logs;
 DROP TABLE IF EXISTS user_achievements;
 ALTER TABLE users
-DROP
-CONSTRAINT IF EXISTS user_char_id;
+    DROP CONSTRAINT IF EXISTS user_char_id;
 ALTER TABLE users
-DROP
-COLUMN IF EXISTS user_char_id;
+    DROP
+        COLUMN IF EXISTS user_char_id;
 DROP TABLE IF EXISTS user_characters;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS users;
@@ -19,6 +18,7 @@ CREATE TABLE users
     phone_number      character varying(255) NOT NULL UNIQUE,
     name_or_id        character varying(255) NOT NULL,
     user_char_id      bigint,
+    point             bigint,
     registration_date timestamp(6)           NOT NULL DEFAULT CURRENT_TIMESTAMP()
 );
 
@@ -57,8 +57,8 @@ ALTER TABLE users
 -- 산책지점 테이블
 CREATE TABLE stations
 (
-    latitude DOUBLE,
-    longitude DOUBLE,
+    latitude   DOUBLE,
+    longitude  DOUBLE,
     place_name VARCHAR(255),
     points     INT,
     PRIMARY KEY (latitude, longitude)
@@ -69,8 +69,8 @@ CREATE TABLE user_stations
 (
     user_station_id INT AUTO_INCREMENT PRIMARY KEY,
     phone_number    VARCHAR(255),
-    latitude DOUBLE,
-    longitude DOUBLE,
+    latitude        DOUBLE,
+    longitude       DOUBLE,
     place_name      VARCHAR(255),
     visit_date      TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT location FOREIGN KEY (latitude, longitude) REFERENCES stations (latitude, longitude),
@@ -103,7 +103,7 @@ CREATE TABLE search_history
 -- CREATE TABLE user_achievements
 -- (
 --     achievement_id   bigint(64) auto_increment PRIMARY KEY,
---     phone_number     character varying(255),
+--     phone_number     character varying(2 55),
 --     achievement_name character varying(255),
 --     achievement_date timestamp(6),
 --     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
@@ -119,8 +119,8 @@ CREATE TABLE search_history
 --     FOREIGN KEY (phone_number) REFERENCES users (phone_number)
 -- );
 
-INSERT INTO users (phone_number, name_or_id)
-VALUES ('010-0000-0000', 'user01');
+INSERT INTO users (phone_number, name_or_id, point)
+VALUES ('010-0000-0000', 'user01', 1000);
 
 INSERT INTO characters (character_info, character_name, required_points, img_url)
 VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmGZAH86X_Qc4ygNT73gfqO7th'),
@@ -134,19 +134,19 @@ VALUES ('test1', 'c1', 0, 'https://drive.google.com/uc?export=view&id=1D6R19DZmG
 --        ('010-0000-0000', 0, 2, 'test2', 'c2', 'https://drive.google.com/uc?export=view&id=1Ql8HiX4gXQU1vICkiSF-4hJoEg9wpCwn', true);
 
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 100, true
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 10, true
 FROM characters
 where char_id = 1;
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 200, false
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 20, false
 FROM characters
 where char_id = 2;
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 300, false
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 30, false
 FROM characters
 where char_id = 3;
 INSERT INTO user_characters (char_id, character_info, character_nickname, img_url, phone_number, exp, is_active)
-SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 400, false
+SELECT char_id, character_info, character_name, img_url, '010-0000-0000', 40, false
 FROM characters
 where char_id = 4;
 
@@ -164,9 +164,9 @@ VALUES (35.9083169000378, 128.8000559439628, 100, '세븐일레븐 경일대점'
 
 INSERT INTO user_stations (phone_number, latitude, longitude, place_name)
 VALUES ('010-0000-0000', 35.910028826785364, 128.80051841346608, '세븐일레븐 경일대공대점'), -- 세븐일레븐 경일대공대점
-       ('010-0000-0000', 35.9083169000378, 128.8000559439628, '세븐일레븐 경일대점'),   -- 세븐일레븐 경일대점
-       ('010-0000-0000', 35.90711447627247, 128.8024211700401, '세븐일레븐 경일대구내점'),  -- 세븐일레븐 경일대구내점
-       ('010-0000-0000', 35.90383688436267, 128.80075744863962, 'GS25 경일대정문점'), -- GS25 경일대정문점
+       ('010-0000-0000', 35.9083169000378, 128.8000559439628, '세븐일레븐 경일대점'),      -- 세븐일레븐 경일대점
+       ('010-0000-0000', 35.90711447627247, 128.8024211700401, '세븐일레븐 경일대구내점'),   -- 세븐일레븐 경일대구내점
+       ('010-0000-0000', 35.90383688436267, 128.80075744863962, 'GS25 경일대정문점'),   -- GS25 경일대정문점
        ('010-0000-0000', 35.90392406965374, 128.8005019121349, 'CU 경일대정문점'); -- CU 경일대정문점
 
 
@@ -201,7 +201,16 @@ FROM characters
          JOIN user_characters
               ON characters.char_id = user_characters.char_id;
 
+
+
+UPDATE user_characters
+SET character_nickname = 'qwerqwer'
+WHERE user_char_id =
+      (
+          SELECT user_char_id
+          FROM users
+          WHERE phone_number = '010-0000-0000'
+          );
+
 select *
-from user_stations;
-
-
+from users;
