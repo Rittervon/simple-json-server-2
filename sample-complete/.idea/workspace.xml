@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45da3d57-0b16-4447-a705-16d163cdf8fc" name="변경" comment="fix">
-      <change beforePath="$PROJECT_DIR$/../public/sample/character.html" beforeDir="false" afterPath="$PROJECT_DIR$/../public/sample/character.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../public/sample/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/../public/sample/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,9 @@
       <workItem from="1700706538460" duration="256000" />
       <workItem from="1700706846379" duration="66000" />
       <workItem from="1700707052368" duration="866000" />
-      <workItem from="1700714693167" duration="1621000" />
+      <workItem from="1700714693167" duration="2512000" />
+      <workItem from="1700793067880" duration="699000" />
+      <workItem from="1701046609196" duration="1064000" />
     </task>
     <task id="LOCAL-00001" summary="cc">
       <option name="closed" value="true" />

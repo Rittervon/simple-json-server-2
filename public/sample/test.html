@@ -48,6 +48,70 @@
         height: 800px;
       }
 
+      #category {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        border-radius: 5px;
+        border: 1px solid #909090;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+        background: #fff;
+        overflow: hidden;
+        z-index: 2;
+      }
+      #category li {
+        float: left;
+        list-style: none;
+        width: 50px;
+        border-right: 1px solid #acacac;
+        padding: 6px 0;
+        text-align: center;
+        cursor: pointer;
+      }
+      #category li.on {
+        background: #eee;
+      }
+      #category li:hover {
+        background: #ffe6e6;
+        border-left: 1px solid #acacac;
+        margin-left: -1px;
+      }
+      #category li:last-child {
+        margin-right: 0;
+        border-right: 0;
+      }
+      #category li span {
+        display: block;
+        margin: 0 auto 3px;
+        width: 27px;
+        height: 28px;
+      }
+      #category li .category_bg {
+        background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
+          no-repeat;
+      }
+      #category li .bank {
+        background-position: -10px 0;
+      }
+      #category li .mart {
+        background-position: -10px -36px;
+      }
+      #category li .pharmacy {
+        background-position: -10px -72px;
+      }
+      #category li .oil {
+        background-position: -10px -108px;
+      }
+      #category li .cafe {
+        background-position: -10px -144px;
+      }
+      #category li .store {
+        background-position: -10px -180px;
+      }
+      #category li.on .category_bg {
+        background-position-x: -46px;
+      }
+
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
         background-color: transparent;
@@ -307,6 +371,32 @@
 
     <div class="map_wrap">
       <div id="map"></div>
+      <ul id="category">
+        <li id="BK9" data-order="0">
+          <span class="category_bg bank"></span>
+          은행
+        </li>
+        <li id="MT1" data-order="1">
+          <span class="category_bg mart"></span>
+          마트
+        </li>
+        <li id="PM9" data-order="2">
+          <span class="category_bg pharmacy"></span>
+          약국
+        </li>
+        <li id="OL7" data-order="3">
+          <span class="category_bg oil"></span>
+          주유소
+        </li>
+        <li id="CE7" data-order="4">
+          <span class="category_bg cafe"></span>
+          카페
+        </li>
+        <li id="CS2" data-order="5">
+          <span class="category_bg store"></span>
+          편의점
+        </li>
+      </ul>
     </div>
 
     <footer>
@@ -339,7 +429,27 @@
   ></script>
   <script>
     // 마커를 담을 배열입니다
-    var markers = [];
+    var markers = [],
+      placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 }),
+      contentNode = document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
+      currCategory = ""; // 현재 선택된 카테고리를 가지고 있을 변수입니다
+
+    // 카테고리 검색을 요청하는 함수입니다
+    function searchStations() {
+      if (!currCategory) {
+        return;
+      }
+
+      // 커스텀 오버레이를 숨깁니다
+      placeOverlay.setMap(null);
+
+      // 지도에 표시되고 있는 마커를 제거합니다
+      removeMarker();
+
+      ps.categorySearch(currCategory, placesSearchCB, { useMapBounds: true });
+    }
+
+    addCategoryClickEvent();
 
     var mapContainer = document.getElementById("map"); // 지도를 표시할 div
     var mapOption = {
@@ -349,6 +459,12 @@
 
     // 지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 지도에 idle 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, "idle", searchStations);
+
+    // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
+    contentNode.className = "placeinfo_wrap";
 
     var imageSrc =
         "https://drive.google.com/uc?export=view&id=1umleG2KLDXHQC6xg0rZiFQOMEeau3K-J", // 마커이미지의 주소입니다
@@ -394,9 +510,6 @@
 
     // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-
-    // 키워드로 장소를 검색합니다
-    //searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
     function searchPlaces() {
@@ -631,5 +744,48 @@
 
     // Add a variable to keep track of the map size state
     var isMapExpanded = true;
+
+    // 각 카테고리에 클릭 이벤트를 등록합니다
+    function addCategoryClickEvent() {
+      var category = document.getElementById("category"),
+        children = category.children;
+
+      for (var i = 0; i < children.length; i++) {
+        children[i].onclick = onClickCategory;
+      }
+    }
+
+    // 카테고리를 클릭했을 때 호출되는 함수입니다
+    function onClickCategory() {
+      var id = this.id,
+        className = this.className;
+
+      placeOverlay.setMap(null);
+
+      if (className === "on") {
+        currCategory = "";
+        changeCategoryClass();
+        removeMarker();
+      } else {
+        currCategory = id;
+        changeCategoryClass(this);
+        searchStations();
+      }
+    }
+
+    // 클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
+    function changeCategoryClass(el) {
+      var category = document.getElementById("category"),
+        children = category.children,
+        i;
+
+      for (i = 0; i < children.length; i++) {
+        children[i].className = "";
+      }
+
+      if (el) {
+        el.className = "on";
+      }
+    }
   </script>
 </html>
