@@ -126,24 +126,61 @@
 
       /* Pop-up styles */
       .popup {
+        width: 30%;
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #ffffff;
-        padding: 20px;
+        background-color: #ecf0f3; /* Match the background color of other containers */
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 10px 10px 20px #c2c9d4, -10px -10px 20px #ffffff;
         z-index: 1000;
       }
 
+      .popup p {
+        font-size: 18px; /* Adjust the font size to match the rest of the content */
+        margin-bottom: 15px; /* Add some spacing between paragraphs */
+      }
+
+      .popup input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        border: none; /* Match the border style of other inputs */
+        border-radius: 5px;
+      }
+
+      .popup button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .popup button.cancel {
+        background-color: #f44336;
+      }
+
+      .popup button:hover {
+        opacity: 0.8; /* Add a subtle hover effect */
+      }
+
+      /* Close button */
       .close {
         position: absolute;
         top: 10px;
         right: 10px;
         cursor: pointer;
         font-size: 18px;
+        color: #333; /* Match the color of other text elements */
+      }
+
+      #expSaveButton {
+        background-color: blue;
       }
 
       /* Additional styles for the pop-up content */
@@ -188,10 +225,12 @@
       <img id="charImg" src="" />
       <div id="pointContainer">
         <span>총 포인트 : <a id="totalPoint">3000</a></span>
-      <div id="expBox" onclick="openPopup()">
-        <div id="exp">
-          <div expView>
-            <a id="characterExp">50</a> <a> / </a> <a id="requiredPoint">100</a>
+        <div id="expBox" onclick="openPopup()">
+          <div id="exp">
+            <div expView>
+              <a id="characterExp">50</a> <a> / </a>
+              <a id="requiredPoint">100</a>
+            </div>
           </div>
         </div>
       </div>
@@ -204,11 +243,10 @@
       <p>경험치 전환</p>
       <input id="experienceInput" min="0" max="500" step="10" />
       <br />
-      <button onclick="decreaseExperience()">-</button>
-      <button onclick="increaseExperience()">+</button>
-      <button onclick="saveExperience('010-0000-0000')">Save</button>
+      <button class="material-symbols-outlined" onclick="decreaseExperience()">keyboard_double_arrow_left</button>
+      <button class="material-symbols-outlined" onclick="increaseExperience()">keyboard_double_arrow_right</button>
+      <button id="expSaveButton" class="material-symbols-outlined" onclick="saveExperience('010-0000-0000')">save</button>
     </div>
-
     <div id="nameChangePopup" class="popup">
       <span class="close" onclick="closeNameChangePopup()">&times;</span>
       <p>캐릭터 이름 변경</p>
@@ -355,11 +393,13 @@
     }
 
     function saveExperience(userId) {
-      let expValue = parseInt(document.getElementById("experienceInput").value);
+      var expValue = parseInt(document.getElementById("experienceInput").value);
+
       updateExperienceAjax(userId, expValue);
       closePopup();
     }
 
+    // Function to update experience points using AJAX
     function updateExperienceAjax(userId, newExpValue) {
       // Assuming you have an API endpoint for updating the experience points
       $.ajax({
@@ -370,7 +410,14 @@
         data: JSON.stringify({ exp: newExpValue }),
         success: function (data, status) {
           console.log("Experience points updated successfully!", data);
-          // You can update the UI or perform any other actions here
+
+          // Update the UI with the new experience value
+          let expPercentage = (newExpValue / 100) * 100; // Assuming max exp is 100
+          document.getElementById("exp").style.width = expPercentage + "%";
+          document.getElementById("experienceInput").value = expPercentage;
+
+          // 추가된 부분: characterExp에도 업데이트된 경험치 표시
+          document.getElementById("characterExp").textContent = newExpValue;
         },
         error: function (jqXhr, status, errorThrown) {
           console.error("Failed to update experience points.", errorThrown);
@@ -391,6 +438,7 @@
           let expPercentage = (data.body.exp / 100) * 100; // Assuming max exp is 100
           document.getElementById("exp").style.width = expPercentage + "%";
           document.getElementById("experienceInput").value = expPercentage;
+          document.getElementById("characterExp").textContent = data.body.exp;
         },
         error: function (jqXhr, status, errorThrown) {
           console.error("Failed to load experience.", errorThrown);
