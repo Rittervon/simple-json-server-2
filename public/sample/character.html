@@ -38,8 +38,7 @@
       }
 
       #charImg {
-        margin-top: 40%;
-        margin-bottom: 10%;
+        margin: 10%;
         width: 50%;
         border-radius: 20px;
         background-color: #ecf0f3;
@@ -68,6 +67,10 @@
         justify-content: flex-end;
         align-items: center;
         width: 100%;
+      }
+
+      #pointContainer {
+        margin-bottom: 20px;
       }
 
       .box2 {
@@ -183,6 +186,8 @@
     <div class="box1">
       <p id="charName" onclick="openNameChangePopup()"></p>
       <img id="charImg" src="" />
+      <div id="pointContainer">
+        <span>총 포인트 : <a id="totalPoint">3000</a></span>
       <div id="expBox" onclick="openPopup()">
         <div id="exp">
           <div expView>
