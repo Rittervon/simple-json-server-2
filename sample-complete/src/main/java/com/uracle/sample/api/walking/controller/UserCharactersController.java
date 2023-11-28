@@ -19,7 +19,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/uchar")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "https://happywalking.web.app")
 public class UserCharactersController {
 
     @Autowired

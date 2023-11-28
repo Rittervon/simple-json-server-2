@@ -11,6 +11,9 @@ Start Simple Json Server
 github https://github.com/7ee5u61n/simple-json-server-2
 google drive https://drive.google.com/file/d/1VPjIbKVyUBUs3ozWBBB1kL6-C4JiGSiR/view?usp=drive_link
 
+## Firebase deploy
+firebase deploy --only hosting:happywalking
+
 ## installation
 
 ```bash
