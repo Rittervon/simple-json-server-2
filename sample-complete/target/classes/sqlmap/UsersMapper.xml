@@ -30,10 +30,13 @@
         update users
         set
         <if test="phone_number != null and phone_number != ''">
-            phone_number = #{phone_number}
+            phone_number = #{phone_number},
         </if>
         <if test="name_or_id != null and name_or_id != ''">
-            name_or_id = #{name_or_id}
+            name_or_id = #{name_or_id},
+        </if>
+        <if test="user_char_id != null and user_char_id != ''">
+            user_char_id = #{user_char_id}
         </if>
         where phone_number = #{phone_number}
     </update>

@@ -2,6 +2,7 @@ package com.uracle.sample.api.walking.service;
 
 import com.uracle.sample.api.walking.mapper.UserStationsMapper;
 import com.uracle.sample.api.walking.table.UserStations;
+import com.uracle.sample.api.walking.table.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,15 @@ public class UserStationsService {
         return affectRow;
     }
 
-    public List<UserStations> selectUserStation() {
-        List<UserStations> userStations = userStationsMapper.selectUserStation();
-        logger.debug("select count: {}", userStations.size());
-
-        for (UserStations userStation : userStations) {
-            logger.debug(">>>> userStation: {}", userStation);
+    public UserStations selectUserStation(UserStations param) {
+        UserStations userStation = userStationsMapper.selectUserStation(param);
+        if (userStation == null) {
+            userStation = new UserStations();
         }
+        logger.debug("userStation: {}", userStation);
 
-        return userStations;
+        return userStation;
     }
-
     public int clearUserStation(UserStations param) {
         int affectRow = userStationsMapper.clearUserStation(param);
         logger.debug("delete count: {}", affectRow);
