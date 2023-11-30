@@ -19,7 +19,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/chars")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class CharacterController {
 
     @Autowired

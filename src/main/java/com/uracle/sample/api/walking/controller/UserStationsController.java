@@ -17,7 +17,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/ustations")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserStationsController {
 
     @Autowired
