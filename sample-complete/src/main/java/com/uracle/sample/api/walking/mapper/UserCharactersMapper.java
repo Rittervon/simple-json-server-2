@@ -13,5 +13,6 @@ public interface UserCharactersMapper {
     List<UserCharacters> selectUserCharacter();
 
     UserCharacters getUserCharacterById(UserCharacters userCharacter);
-    Integer updateCharacter(UserCharacters userCharacter);
+    Integer updateCharacterName(UserCharacters userCharacter);
+    Integer updateCharacterExp(UserCharacters userCharacter);
 }

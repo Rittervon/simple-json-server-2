@@ -19,7 +19,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/uchar")
-@CrossOrigin(origins = "http://localhost:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserCharactersController {
 
     @Autowired
@@ -72,12 +72,30 @@ public class UserCharactersController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/{user_char_id}")
-    public ResponseEntity<MspResult> updateCharacter(@PathVariable("user_char_id") int id, @RequestBody UserCharacters param) {
+    @PostMapping("/name/{phone_number}")
+    public ResponseEntity<MspResult> updateCharacterName(@PathVariable("phone_number") String id, @RequestBody UserCharacters param) {
         MspResult result;
 
-        param.setUser_char_id(id);
-        int affectRow = userCharactersService.updateCharacter(param);
+        param.setPhone_number(id);
+        int affectRow = userCharactersService.updateCharacterName(param);
+
+        if (affectRow == 1) {
+            result = makeResult(param);
+        } else if(affectRow > 1) {
+            result = makeResult("4444", "복수 개의 사용자가 수정됨, 시스템 점검 바람", param);
+        } else {
+            result = makeResult("4444", "수정할 사용자가 없거나, 파라미터 오류", param);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/exp/{phone_number}")
+    public ResponseEntity<MspResult> updateCharacterExp(@PathVariable("phone_number") String id, @RequestBody UserCharacters param) {
+        MspResult result;
+
+        param.setPhone_number(id);
+        int affectRow = userCharactersService.updateCharacterExp(param);
 
         if (affectRow == 1) {
             result = makeResult(param);
