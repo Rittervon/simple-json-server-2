@@ -14,5 +14,6 @@ public class UserStations {
     private String phone_number;
     private float latitude;
     private float longitude;
+    private String place_name;
     private LocalDateTime visit_date;
 }

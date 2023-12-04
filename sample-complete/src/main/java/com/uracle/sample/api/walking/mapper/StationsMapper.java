@@ -9,7 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface StationsMapper {
 
     /*################## Stations #####################*/
-    Integer initStation(Stations station);
     List<Stations> selectStatioin();
-    Integer deleteStatioin(Stations station);
 }

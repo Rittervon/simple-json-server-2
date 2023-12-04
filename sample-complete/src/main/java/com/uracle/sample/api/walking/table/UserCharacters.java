@@ -17,4 +17,5 @@ public class UserCharacters {
     private String character_nickname;
     private LocalDateTime acquisition_date;
     private boolean is_active;
+    private String img_url;
 }

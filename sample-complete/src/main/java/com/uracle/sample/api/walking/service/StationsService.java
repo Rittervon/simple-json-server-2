@@ -14,14 +14,6 @@ import java.util.List;
 public class StationsService {
     @Autowired
     private StationsMapper stationsMapper;
-
-    public int initStation(Stations station){
-        int affectRow = stationsMapper.initStation(station);
-        logger.debug("insert count: {}", affectRow);
-
-        return affectRow;
-    }
-
     public List<Stations> selectStatioin() {
         List<Stations> stations = stationsMapper.selectStatioin();
         logger.debug("select count: {}", stations.size());
@@ -33,10 +25,4 @@ public class StationsService {
         return stations;
     }
 
-    public int deleteStatioin(Stations param) {
-        int affectRow = stationsMapper.deleteStatioin(param);
-        logger.debug("delete count: {}", affectRow);
-
-        return affectRow;
-    }
 }

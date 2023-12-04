@@ -34,8 +34,8 @@ public class UserCharactersService {
         return userCharacters;
     }
 
-    public UserCharacters selectCharacterById(UserCharacters param) {
-        UserCharacters userCharacter = userCharactersMapper.selectCharacterById(param);
+    public UserCharacters getUserCharacterById(UserCharacters param) {
+        UserCharacters userCharacter = userCharactersMapper.getUserCharacterById(param);
         if (userCharacter == null) {
             userCharacter = new UserCharacters();
         }
@@ -44,8 +44,15 @@ public class UserCharactersService {
         return userCharacter;
     }
 
-    public int updateCharacter(UserCharacters param) {
-        int affectRow = userCharactersMapper.updateCharacter(param);
+    public int updateCharacterName(UserCharacters param) {
+        int affectRow = userCharactersMapper.updateCharacterName(param);
+        logger.debug("update count: {}", affectRow);
+
+        return affectRow;
+    }
+
+    public int updateCharacterExp(UserCharacters param) {
+        int affectRow = userCharactersMapper.updateCharacterExp(param);
         logger.debug("update count: {}", affectRow);
 
         return affectRow;

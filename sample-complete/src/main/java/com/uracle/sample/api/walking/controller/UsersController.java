@@ -18,6 +18,7 @@ import static com.uracle.sample.support.MspUtil.makeResult;
 @Slf4j
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UsersController {
 
     @Autowired
@@ -69,7 +70,6 @@ public class UsersController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
 
     @PostMapping("/{phone_number}")
     public ResponseEntity<MspResult> editUser(@PathVariable("phone_number") String id, @RequestBody Users param) {

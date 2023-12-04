@@ -13,5 +13,7 @@ import lombok.ToString;
 public class Users {
     private String phone_number;
     private String name_or_id;
+    private int user_char_id;
+    private int point;
     private LocalDateTime registration_date;
 }

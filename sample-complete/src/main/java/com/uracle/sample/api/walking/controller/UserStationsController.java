@@ -10,14 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 import static com.uracle.sample.support.MspUtil.makeResult;
 
 @MSP
 @Slf4j
 @RestController
-@RequestMapping("/ustaions")
+@RequestMapping("/ustations")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserStationsController {
 
     @Autowired
@@ -38,13 +38,15 @@ public class UserStationsController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<MspResult> selectUserStation() {
+    @GetMapping("/{user_station_id}")
+    public ResponseEntity<MspResult> selectUserStation(@PathVariable("user_station_id") int id) {
         MspResult result;
 
-        List<UserStations> body = userStationsService.selectUserStation();
+        UserStations param = new UserStations();
+        param.setUser_station_id(id);
+        UserStations body = userStationsService.selectUserStation(param);
 
-        if (body.size() > 0) {
+        if (body != null) {
             result = makeResult(body);
         } else {
             result = makeResult("8888", "등록된 사용자가 없음", body);
